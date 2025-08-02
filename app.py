@@ -31,7 +31,7 @@ try:
         prompt="Hello, world!",
         max_tokens=50
     )
-    st.write(response.choices[0].text.strip())
+    st.write(completion.choices[0].message.content)
 except openai.OpenAIError as e:
     st.error(f"Error connecting to OpenAI: {e}")
 
