@@ -24,15 +24,7 @@ st.session_state.client = OpenAI(
 ,
 )
 
-try:
-    # Make a simple API call to test the connection
-    response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt="Hello, world!",
-        max_tokens=50
-    )
-except openai.OpenAIError as e:
-    st.error(f"Error connecting to OpenAI: {e}")
+st.write(st.secrets)  # This will print all secrets to the Streamlit app
 
 # Initialize session state variables if they don't exist
 if 'processed_credit_df' not in st.session_state:
