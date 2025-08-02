@@ -17,14 +17,14 @@ st.set_page_config(page_title="Macker Spending Tracker", layout="wide", initial_
 
 load_dotenv()
 
-
+secret_key = st.secrets["openai"]["api_key"]
 st.session_state.client = OpenAI(
     # This is the default and can be omitted
-    api_key=st.secrets["openai"]["api_key"]
+    api_key=secret_key
 ,
 )
 
-st.write(st.secrets)  # This will print all secrets to the Streamlit app
+st.write(secret_key)  # This will print all secrets to the Streamlit app
 
 # Initialize session state variables if they don't exist
 if 'processed_credit_df' not in st.session_state:
