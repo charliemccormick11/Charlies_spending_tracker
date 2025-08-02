@@ -33,7 +33,8 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     4. If there are two amount columns (Credit and Debit), provide their indices and include them as "credit" and "debit".
     4.4 If there is one amount column, put it as 'debit'.
     5. Remove any payment that seems to be paying off a credit card (such as online payment).
-    6. Return ONLY the response as a Python JSON dictionary with the following keys: 'header', 'transaction_date', 'transaction_name', 'credit', 'debit', 'category'. No additional text, explanations, or strings. Only return the dictionary, nothing else. Make format identical for with or without headers!
+    6. Transaction name CANNOT be null. There will always be a column!
+    7. Return ONLY the response as a Python JSON dictionary with the following keys: 'header', 'transaction_date', 'transaction_name', 'credit', 'debit', 'category'. No additional text, explanations, or strings. Only return the dictionary, nothing else. Make format identical for with or without headers!
     THE RESPONSE MUST BE A JSON DICT, NOTHING ELSE!
     """
 
