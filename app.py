@@ -24,7 +24,6 @@ st.session_state.client = OpenAI(
 ,
 )
 
-st.write(secret_key)  # This will print all secrets to the Streamlit app
 
 # Initialize session state variables if they don't exist
 if 'processed_credit_df' not in st.session_state:
