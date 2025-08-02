@@ -49,8 +49,8 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     # Parse OpenAI response into a dictionary
     try:
     # Parse the JSON response
-        st.write(completion.choices[0].message.content)  # Output the parsed column_info
-        st.session_state.column_info = completion.choices[0].message.content
+        st.write(json.loads(completion.choices[0].message.content))  # Output the parsed column_info
+        st.session_state.column_info = json.loads(completion.choices[0].message.content)
     except Exception as e:
         st.error(f"Error parsing OpenAI response: {str(e)}")
         st.session_state.column_info = {}
