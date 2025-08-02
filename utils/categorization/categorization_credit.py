@@ -43,13 +43,11 @@ def categorize_previous_transactions(processed_nonchase_df):
 
 
 def categorize_first_pass(processed_nonchase_df):
-    st.write(os.listdir(r"C:\Users\charl\OneDrive\Spending\DEMO Spending Project"))
     # Load the historical transaction data
     try:
         historical_data = pd.read_csv(r"C:\Users\charl\OneDrive\Spending\DEMO Spending Project\Historic Data.csv")
     except FileNotFoundError:
         st.error("Historical transaction data file not found. Please ensure 'Historic Data.csv' exists in the project folder.")
-        st.write(os.listdir(r"C:\Users\charl\OneDrive\Spending\DEMO Spending Project"))
         return None
 
     # Initialize empty DataFrames for each category
