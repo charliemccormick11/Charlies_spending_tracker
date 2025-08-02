@@ -29,7 +29,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     - Amount
     - Category (if present)
     - these would be Dining, Food, Groceries, etc.
-    3. If the Category column is missing, mention that as None.
+    3. Assume there is a Category column. But if there isn't say it's none
     4. If there are two amount columns (Credit and Debit), provide their indices and include them as "credit" and "debit".
     4.4 If there is one amount column, put it as 'debit'.
     5. Remove any payment that seems to be paying off a credit card (such as online payment).
