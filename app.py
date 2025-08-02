@@ -20,7 +20,7 @@ load_dotenv()
 
 st.session_state.client = OpenAI(
     # This is the default and can be omitted
-    api_key=os.getenv("OPENAI_API_KEY"),
+    api_key=st.secrets["OPENAI_API_KEY"],
 )
 
 
