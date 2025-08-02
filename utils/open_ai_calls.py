@@ -36,7 +36,6 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     THE RESPONSE MUST BE A JSON DICT, NOTHING ELSE!
     """
 
-    st.write(credit_sample)
     completion = client.chat.completions.create(
     model="gpt-4-turbo",
     messages=[{
@@ -48,10 +47,8 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     # Parse OpenAI response into a dictionary
     try:
     # Parse the JSON response
-        st.write(json.loads(completion.choices[0].message.content))  # Output the parsed column_info
         st.session_state.column_info = json.loads(completion.choices[0].message.content)
 
-        st.write(st.session_state.column_info['transaction_date'])
         
     except Exception as e:
         st.error(f"Error parsing OpenAI response: {str(e)}")
