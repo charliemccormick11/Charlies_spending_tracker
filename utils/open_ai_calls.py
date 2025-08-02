@@ -27,8 +27,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     - Transaction Date
     - Transaction Description (names of places purchased)
     - Amount
-    - Category (if present)
-    - these would be Dining, Food, Groceries, etc.
+    - Category (if present) which would be things like Dining, Food, Groceries, etc.
     3. Assume there is a Category column. But if there isn't say it's none
     4. If there are two amount columns (Credit and Debit), provide their indices and include them as "credit" and "debit".
     4.4 If there is one amount column, put it as 'debit'.
