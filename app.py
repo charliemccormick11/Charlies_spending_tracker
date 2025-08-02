@@ -15,13 +15,11 @@ import time
 
 st.set_page_config(page_title="Macker Spending Tracker", layout="wide", initial_sidebar_state="expanded")
 
-load_dotenv()
 
 secret_key = st.secrets["openai"]["api_key"]
 st.session_state.client = OpenAI(
     # This is the default and can be omitted
     api_key=secret_key
-,
 )
 
 
