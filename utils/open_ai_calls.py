@@ -167,7 +167,8 @@ def open_ai_random_categorization(client):
             try:
                 # Parse the result from the GPT response
                 result_csv = completion.choices[0].message.content
-                
+
+                st.dataframe(result_csv)
                 # Convert the CSV content into a DataFrame
                 remaining_categorized = pd.read_csv(io.StringIO(result_csv))
 
