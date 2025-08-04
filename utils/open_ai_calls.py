@@ -20,8 +20,6 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     
     {credit_sample}
     
-
-
     Please:
     1. Determine if there is a header row in the data:
        - If the first row contains column names (e.g., "Transaction Date", "Amount"), set 'header' to True.
@@ -33,22 +31,24 @@ def open_ai_headers(uploaded_credit, credit_card, client):
        - Amount
        - Category (if present)
        
-       Make sure the column names are exact, and **do not return duplicate indices**. If any of these columns are missing or labeled differently, return `null` for that column index.
+       Make sure the column names are exact. If any of these columns are missing or labeled differently, provide your best guess for the column's index. **Do not return null** for the transaction name column (Description). Always make your best guess for the transaction name column, even if it may be incorrect.
     
     3. If there are two amount columns (Credit and Debit), provide their indices and label them as 'credit' and 'debit'. If only one amount column exists, label it as 'debit'.
-        
-    4. Ensure that the transaction name column is **never null**
-
-    5. Return the response **ONLY as a Python JSON dictionary** with the following keys and values:
+    
+    4. Exclude any rows that appear to be payments to a credit card (such as online payments or payments to financial institutions). Identify payments by their description.
+    
+    5. **The transaction name column (Description) must never be null**. Even if the description is unclear or missing, make your best guess for the column index and provide it. If the transaction name is missing or ambiguous, provide your best guess (even if wrong) and proceed with categorization.
+    
+    6. Return the response **ONLY as a Python JSON dictionary** with the following keys and values:
        - 'header' : Boolean value (True or False)
-       - 'transaction_date' : Column index for "Transaction Date" 
-       - 'transaction_name' : Column index for "Description"
-       - 'credit' : Column index for "Credit" 
-       - 'debit' : Column index for "Debit" (or `null` if not found)
+       - 'transaction_date' : Column index for "Transaction Date"
+       - 'transaction_name' : Column index for "Description" (NEVER null, even if guessed)
+       - 'credit' : Column index for "Credit" (or `null` if not found)
+       - 'debit' : Column index for "Debit" 
        - 'category' : Column index for "Category"
     
-       Ensure that **none of these columns have the same index number**. If any column is missing, return `null` for that column.
-
+       Ensure that **none of these columns have the same index number**. If any column is missing or mislabeled, provide the best guess or `null` where necessary.
+    
     Please ensure the JSON format is **consistent** regardless of whether the header row is present or not. Do **not** include any additional text, explanations, or strings. The output should **only** be a **JSON dictionary**, nothing else!
     
     The response must be in a valid JSON format and contain no extra information!
