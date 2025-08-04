@@ -94,7 +94,7 @@ else:
     st.sidebar.divider()
     
     if users == "New Users 💥":
-        credit_card = st.sidebar.selectbox("Select Your Credit Card 💳", options = ["Chase", "Other"])
+        st.session_state.credit_card = st.sidebar.selectbox("Select Your Credit Card 💳", options = ["Chase", "Other"])
 
         st.sidebar.subheader("Upload Credit Card Statements 🧾")
         uploaded_credit=st.sidebar.file_uploader("Credit Card CSV files", type = ["csv"], accept_multiple_files= True)
@@ -111,7 +111,7 @@ else:
 
         st.sidebar.divider()
 
-        credit_card = st.sidebar.selectbox("Select Your Credit Card 💳", options = ["Chase", "Other"])
+        st.session_state.credit_card = st.sidebar.selectbox("Select Your Credit Card 💳", options = ["Chase", "Other"])
         st.sidebar.divider()
 
         st.sidebar.subheader("Upload Credit Card Statements 🧾")
