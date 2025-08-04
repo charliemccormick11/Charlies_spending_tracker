@@ -151,12 +151,12 @@ def open_ai_random_categorization(client):
             Transactions to categorize:
             {readable_remaining_df_feed.to_csv(index=False)}
             
-            Return the results as a single-column dataframe. The column header should be "Category". 
+            Return the results as a SINGLE-COLUMN DATAFRAME. The column header should be "Category". 
             Ensure the number of rows in the output matches the number of rows in the input.
             """
 
             completion = client.chat.completions.create(
-            model="gpt-4",  # Using a more stable model for categorization
+            model="gpt-4-turbo",  # Using a more stable model for categorization
             messages=[{
                 "role": "user",
                 "content": prompt
