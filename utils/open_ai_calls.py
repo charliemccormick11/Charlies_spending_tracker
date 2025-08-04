@@ -16,24 +16,37 @@ def open_ai_headers(uploaded_credit, credit_card, client):
 
     prompt = f"""
     I have uploaded the following CSV data:
-
+    
     {credit_sample}
-
+    
     Please:
-    1. Check if there is a header row in the data.
-    1.1 If the first row contains column names (e.g., "Transaction Date", "Amount"), set 'header' to True.
-    1.2 If the first row contains data (e.g., values like "2023-01-01", "100"), set 'header' to False.
-    2. Regardless of if there's a header, provide the column indices (starting from 0) for the following columns:
-    - Transaction Date
-    - Transaction Description (names of places purchased)
-    - Amount
-    - Category
-    3. If there are two amount columns (Credit and Debit), provide their indices and include them as "credit" and "debit".
-    3.1 If there is one amount column, put it as 'debit'.
-    4. Remove any payment that seems to be paying off a credit card (such as online payment).
-    5. Transaction name CANNOT be null. There will always be a column!
-    6. Return ONLY the response as a Python JSON dictionary with the following keys: 'header', 'transaction_date', 'transaction_name', 'credit', 'debit', 'category'. No additional text, explanations, or strings. Only return the dictionary, nothing else. Make format identical for with or without headers!
-    THE RESPONSE MUST BE A JSON DICT, NOTHING ELSE!
+    1. Determine if there is a header row in the data:
+       - If the first row contains column names (e.g., "Transaction Date", "Amount"), set 'header' to True.
+       - If the first row contains data (e.g., values like "2023-01-01", "100"), set 'header' to False.
+    
+    2. Identify the following columns by their names (case-sensitive). Return their column indices (starting from 0):
+       - Transaction Date
+       - Transaction Description (names of places purchased)
+       - Amount
+       - Category (if present)
+    
+    3. If there are two columns related to amounts (Credit and Debit), provide their indices as 'credit' and 'debit'. If only one amount column is present, label it as 'debit'.
+    
+    4. Exclude any rows that appear to be payments to a credit card (such as online payments or payments to financial institutions).
+    
+    5. Ensure that the transaction name column is never null and always has values.
+    
+    6. Return ONLY the response as a Python JSON dictionary with the following keys:
+       - 'header' : Boolean value (True or False)
+       - 'transaction_date' : Column index for "Transaction Date"
+       - 'transaction_name' : Column index for "Transaction Description"
+       - 'credit' : Column index for the "Credit" column (if present)
+       - 'debit' : Column index for the "Debit" column
+       - 'category' : Column index for "Category" (if present)
+       
+    Please ensure the JSON format is consistent regardless of whether the header row is present or not. The output should only be the JSON dictionary with no additional text, explanations, or strings.
+    
+    The response must be a JSON dictionary, nothing else!
     """
 
     completion = client.chat.completions.create(
