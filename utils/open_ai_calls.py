@@ -82,8 +82,8 @@ def open_ai_headers(uploaded_credit, credit_card, client):
             # Assign columns based on OpenAI's response
             total_credit_df["Transaction Date"] = total_credit_df.iloc[:, st.session_state.column_info['transaction_date']]
             total_credit_df["Description"] = total_credit_df.iloc[:, st.session_state.column_info['transaction_name']]
-            if st.session_state.credit_card == "Chase" and (st.session_state.column_info['Category'] is not None):
-                total_credit_df["Category"] = total_credit_df.iloc[:, st.session_state.column_info['Category']]
+            if st.session_state.credit_card == "Chase" and (st.session_state.column_info['category'] is not None):
+                total_credit_df["Category"] = total_credit_df.iloc[:, st.session_state.column_info['category']]
             total_credit_df["Amount"] = total_credit_df.iloc[:, st.session_state.column_info['debit']]
             
         # Handle missing Category column
