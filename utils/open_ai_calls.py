@@ -33,19 +33,21 @@ def open_ai_headers(uploaded_credit, credit_card, client):
        
        Make sure the column names are exact. If any of these columns are missing or labeled differently, provide your best guess for the column's index. **Do not return null** for the transaction name column (Description). Always make your best guess for the transaction name column, even if it may be incorrect.
     
-    3. If there are two amount columns (Credit and Debit), provide their indices and label them as 'credit' and 'debit'. If only one amount column exists, label it as 'debit'.
+    3. The transaction name column (Description) is **always the unique name of a merchant**. The name may be in **all caps** or have variations in formatting, but it will represent the merchant or place where the transaction occurred.
     
-    4. Exclude any rows that appear to be payments to a credit card (such as online payments or payments to financial institutions). Identify payments by their description.
+    4. If there are two amount columns (Credit and Debit), provide their indices and label them as 'credit' and 'debit'. If only one amount column exists, label it as 'debit'.
     
-    5. **The transaction name column (Description) must never be null**. Even if the description is unclear or missing, make your best guess for the column index and provide it. If the transaction name is missing or ambiguous, provide your best guess (even if wrong) and proceed with categorization.
+    5. Exclude any rows that appear to be payments to a credit card (such as online payments or payments to financial institutions). Identify payments by their description.
     
-    6. Return the response **ONLY as a Python JSON dictionary** with the following keys and values:
+    6. **The transaction name column (Description) must never be null**. Even if the description is unclear, missing, or in an unusual format (like all caps), make your best guess for the column index and provide it. If the transaction name is missing or ambiguous, provide your best guess (even if wrong) and proceed with categorization.
+    
+    7. Return the response **ONLY as a Python JSON dictionary** with the following keys and values:
        - 'header' : Boolean value (True or False)
-       - 'transaction_date' : Column index for "Transaction Date"
+       - 'transaction_date' : Column index for "Transaction Date" (or `null` if not found)
        - 'transaction_name' : Column index for "Description" (NEVER null, even if guessed)
        - 'credit' : Column index for "Credit" (or `null` if not found)
-       - 'debit' : Column index for "Debit" 
-       - 'category' : Column index for "Category"
+       - 'debit' : Column index for "Debit" (or `null` if not found)
+       - 'category' : Column index for "Category" (or `null` if not found)
     
        Ensure that **none of these columns have the same index number**. If any column is missing or mislabeled, provide the best guess or `null` where necessary.
     
