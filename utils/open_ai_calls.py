@@ -153,6 +153,15 @@ def open_ai_random_categorization(client):
             Ensure the number of rows in the output matches the number of rows in the input.
             """
 
+            completion = client.chat.completions.create(
+            model="gpt-4",  # Using a more stable model for categorization
+            messages=[{
+                "role": "user",
+                "content": prompt
+            }],
+            temperature=0.1  # Low temperature for more predictable results
+            )
+            
             try:
                 # Parse the result from the GPT response
                 result_csv = completion.choices[0].message.content
