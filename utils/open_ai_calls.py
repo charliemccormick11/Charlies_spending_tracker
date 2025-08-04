@@ -27,7 +27,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     
     2. Identify the following columns by their names (case-sensitive). Return their column indices (starting from 0):
        - Transaction Date
-       - Transaction Name (names of places purchased, many times labeled as "Description")
+       - Description (names of purchases)
        - Amount
        - Category (if present)
     
@@ -40,7 +40,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     6. Return ONLY the response as a Python JSON dictionary with the following keys:
        - 'header' : Boolean value (True or False)
        - 'transaction_date' : Column index for "Transaction Date"
-       - 'transaction_name' : Column index for "Transaction Description"
+       - 'transaction_name' : Column index for "Description"
        - 'credit' : Column index for the "Credit" column (if present)
        - 'debit' : Column index for the "Debit" column
        - 'category' : Column index for "Category" (if present)
