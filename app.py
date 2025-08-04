@@ -137,7 +137,7 @@ else:
                     # Process the credit transactions
                     st.session_state.processed_credit_df=dp.process_credit_transactions(total_credit_df)
 
-                    ccs.combine_all_spending(credit_card)
+                    ccs.combine_all_spending(st.session_state.credit_card)
 
 
             csvd.download_as_csv()
