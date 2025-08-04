@@ -111,7 +111,7 @@ def open_ai_random_categorization(client):
             readable_remaining_df_feed = readable_remaining_df[["Transaction Date", "Description" , "Amount"]]
             prompt = f"""
             You are a categorization assistant for personal finance transactions.
-
+            
             Here are the categories that a transaction can be assigned:
             - Alcohol 🍺
             - Dining 🍴
@@ -133,34 +133,24 @@ def open_ai_random_categorization(client):
             - Bills 📜
             - Subscriptions 💳🎬
             - Fees & Adjustments ⚖️
-
-    
-            - **Restaurants** that are chains should be categorized as "Takeout 🍔".
-            - Do not leave any transactions with the "remaining" category unless absolutely necessary.
+            
+            Rules for categorization:
+            - **Chain restaurants** should be categorized as "Takeout 🍔". Be sure to identify the name of the restaurant if applicable and classify it correctly.
+            - **Do not leave any transactions uncategorized** unless there is absolutely no appropriate category available. Ensure every transaction gets one of the categories listed above.
+            - If a transaction is unclear, try your best to place it in the most appropriate category based on the description.
             - **Here are the column headers for the CSV**:
-            - "Transaction Date"
-            - "Description"
-            - "Amount"
-
-            Categorize the transactions below, making sure that each transaction has the appropriate category from the list above.
+              - "Transaction Date"
+              - "Description"
+              - "Amount"
+            
+            Categorize the following transactions below based on the descriptions, ensuring you assign them the appropriate category from the list above.
             
             Transactions to categorize:
-
             {readable_remaining_df_feed.to_csv(index=False)}
-
-            Return as a one column dataframe. Column header is "Category"
-
+            
+            Return the results as a single-column dataframe. The column header should be "Category". 
+            Ensure the number of rows in the output matches the number of rows in the input.
             """
-
-            completion = client.chat.completions.create(
-                model="gpt-4",  # Using faster model
-                messages=[{
-                    "role": "user",
-                    "content": prompt
-                }],
-                temperature=0.1  # Lower temperature for more consistent results
-              # Limit response size for faster processing
-            )
 
             try:
                 # Parse the result from the GPT response
