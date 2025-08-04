@@ -37,15 +37,15 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     
     3. If there are two amount columns (Credit and Debit), provide their indices and label them as 'credit' and 'debit'. If only one amount column exists, label it as 'debit'.
         
-    4. Ensure that the transaction name column is **never null**. If any transaction name is missing, flag it as an error and provide `null` for that column index.
+    4. Ensure that the transaction name column is **never null**
 
     5. Return the response **ONLY as a Python JSON dictionary** with the following keys and values:
        - 'header' : Boolean value (True or False)
-       - 'transaction_date' : Column index for "Transaction Date" (or `null` if not found)
-       - 'transaction_name' : Column index for "Description" (or `null` if not found)
-       - 'credit' : Column index for "Credit" (or `null` if not found)
+       - 'transaction_date' : Column index for "Transaction Date" 
+       - 'transaction_name' : Column index for "Description"
+       - 'credit' : Column index for "Credit" 
        - 'debit' : Column index for "Debit" (or `null` if not found)
-       - 'category' : Column index for "Category" (or `null` if not found)
+       - 'category' : Column index for "Category"
     
        Ensure that **none of these columns have the same index number**. If any column is missing, return `null` for that column.
 
