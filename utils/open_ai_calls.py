@@ -13,7 +13,8 @@ def open_ai_headers(uploaded_credit, credit_card, client):
 
     credit_sample = total_credit_df.head(15)
     #Code that is calling the open AI API
-
+    st.dataframe(credit_sample)
+    
     prompt = f"""
     I have uploaded the following CSV data:
     
