@@ -149,6 +149,8 @@ def open_ai_random_categorization(client):
             
             Return the results as a DICTIONARY. The key should be "Category". The values will be the categories in order
             Ensure the number of values in the output EXACTLY matches the number of rows in the input. Otherwise my code won't work!
+
+            ONLY INCLUDE THE DICT IN THE RESPONSE!
             
             """
 
@@ -158,7 +160,7 @@ def open_ai_random_categorization(client):
                 "role": "user",
                 "content": prompt
             }],
-            temperature=0.5  # Low temperature for more predictable results
+            temperature=0.2  # Low temperature for more predictable results
             )
             
             try:
