@@ -28,8 +28,8 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     - Transaction Date
     - Transaction Description (names of places purchased)
     - Amount
-    - Category (Food & Drink, Groceries, Entertainment, Shopping, etc.)
-    3. If the Category column is missing, mention that as None (it won't be missing for Chase, and will likely be 3)
+    - Category (Food & Drink, Groceries, Entertainment, Shopping, etc.) only if it's a Chase credit card
+    3. Only include category index for Chase (the index will likely be 3)
     4. If there are two amount columns (Credit and Debit), provide their indices and include them as "credit" and "debit".
     4.4 If there is one amount column, put it as 'debit'.
     5. If the credit card is "Chase", return the index of the Category column.
