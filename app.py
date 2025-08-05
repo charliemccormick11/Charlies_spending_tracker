@@ -80,125 +80,125 @@ relevant_columns = ["Transaction Date", "Description", "Amount", "Category"]
  #   if st.session_state.spend_df is None:
   #      st.session_state.spend_df = pd.read_csv("demo_data.csv")
 
-else:
-    new_or_returning = st.sidebar.subheader("New or Returning Users")
-    users = st.sidebar.radio(label = "Have you used this app before?",
-    options = 
-    ["New Users 💥", "Returning Users ↩️"],
-    captions=[
-        "This is your first time",
-        "You've been here before",
-        
-    ],
-)
-    st.sidebar.divider()
+
+new_or_returning = st.sidebar.subheader("New or Returning Users")
+users = st.sidebar.radio(label = "Have you used this app before?",
+options = 
+["New Users 💥", "Returning Users ↩️"],
+captions=[
+    "This is your first time",
+    "You've been here before",
     
-    if users == "New Users 💥":
-        st.session_state.credit_card = st.sidebar.selectbox("Select Your Credit Card 💳", options = ["Chase", "Other"])
+],
+)
+st.sidebar.divider()
 
-        st.sidebar.subheader("Upload Credit Card Statements 🧾")
-        uploaded_credit=st.sidebar.file_uploader("Credit Card CSV files", type = ["csv"], accept_multiple_files= True)
+if users == "New Users 💥":
+    st.session_state.credit_card = st.sidebar.selectbox("Select Your Credit Card 💳", options = ["Chase", "Other"])
 
-
-        uploaded_previous = False
-
-
-
-    elif users == "Returning Users ↩️":
-
-        st.sidebar.subheader("Upload File From Last Session 📊")
-        uploaded_previous_file = st.sidebar.file_uploader("Upload Previous File", type = ["csv"], accept_multiple_files= False)
-
-        st.sidebar.divider()
-
-        st.session_state.credit_card = st.sidebar.selectbox("Select Your Credit Card 💳", options = ["Chase", "Other"])
-        st.sidebar.divider()
-
-        st.sidebar.subheader("Upload Credit Card Statements 🧾")
-        uploaded_credit=st.sidebar.file_uploader("Upload Credit Card CSV files", type = ["csv"], accept_multiple_files= True)
-
-        uploaded_previous = True
-
-    # Add submit button in the sidebar
-    if uploaded_credit or uploaded_previous:
-        if st.sidebar.button("Process Data"):
-            with st.spinner("Processing data..."):
-
-                if users == "Returning Users ↩️":
-                    if uploaded_previous:
-                        st.session_state.total_df_downloaded = pd.read_csv(uploaded_previous_file)
-                        st.session_state.total_df_downloaded_spending = st.session_state.total_df_downloaded[st.session_state.total_df_downloaded["Financial Type"] == "Spending"]
-                        st.session_state.spend_df_preload = st.session_state.total_df_downloaded_spending.reset_index()
-                        st.session_state.previous_categories = st.session_state.total_df_downloaded[st.session_state.total_df_downloaded["Financial Type"] == "Future Category"]
-                        st.session_state.previous_categories = st.session_state.previous_categories.reset_index()
-                if uploaded_credit:
-                    total_credit_df= oaic.open_ai_headers(uploaded_credit, st.session_state.credit_card, st.session_state.client)
-
-                    # Process the credit transactions
-                    st.session_state.processed_credit_df=dp.process_credit_transactions(total_credit_df)
-
-                    ccs.combine_all_spending(st.session_state.credit_card)
+    st.sidebar.subheader("Upload Credit Card Statements 🧾")
+    uploaded_credit=st.sidebar.file_uploader("Credit Card CSV files", type = ["csv"], accept_multiple_files= True)
 
 
-            csvd.download_as_csv()
+    uploaded_previous = False
 
-            
 
-    if selected_tab == "Current Spending 📍" and st.session_state.spend_df is not None:
-        cs.current_spending_page(relevant_columns, st.session_state.client)
 
-        
-    if selected_tab == "Budgeting Goals 💰" and st.session_state.spend_df is not None:
-        sg.budgeting_page(st.session_state.spend_df, st.session_state.client)
+elif users == "Returning Users ↩️":
 
-    if selected_tab =="Future Categorization 📊" and st.session_state.spend_df is not None:
-        st.markdown('### Future Categorization 📊')
-        st.write("""This page allows you to categorize how you want future transactions to be categorized! Press on the category of a transaction name from the
-                 dropdown, and hit the submit button below! 📊""")
+    st.sidebar.subheader("Upload File From Last Session 📊")
+    uploaded_previous_file = st.sidebar.file_uploader("Upload Previous File", type = ["csv"], accept_multiple_files= False)
 
-        unique_transactions = st.session_state.spend_df[["Description", "Category"]].drop_duplicates(subset=["Description"])
+    st.sidebar.divider()
 
-                # Show editor
-        edited_df = st.data_editor(
-            unique_transactions,
-            column_config=st.session_state.column_config,
-            disabled=[col for col in unique_transactions.columns if col != "Category"],
-            column_order=["Description", "Category"],
-            key="category_data_editor",
-            use_container_width=True,
-            hide_index=True
-        )
+    st.session_state.credit_card = st.sidebar.selectbox("Select Your Credit Card 💳", options = ["Chase", "Other"])
+    st.sidebar.divider()
 
-        category_changer = st.button("Press to Save Category Selections For Next Session!")
+    st.sidebar.subheader("Upload Credit Card Statements 🧾")
+    uploaded_credit=st.sidebar.file_uploader("Upload Credit Card CSV files", type = ["csv"], accept_multiple_files= True)
 
-        if category_changer:
-            st.session_state.future_categories = edited_df
-            st.session_state.future_categories["Financial Type"] = "Future Category"
+    uploaded_previous = True
 
-            st.success("Category Updated!")
-            time.sleep(2)
-            st.rerun()
+# Add submit button in the sidebar
+if uploaded_credit or uploaded_previous:
+    if st.sidebar.button("Process Data"):
+        with st.spinner("Processing data..."):
 
+            if users == "Returning Users ↩️":
+                if uploaded_previous:
+                    st.session_state.total_df_downloaded = pd.read_csv(uploaded_previous_file)
+                    st.session_state.total_df_downloaded_spending = st.session_state.total_df_downloaded[st.session_state.total_df_downloaded["Financial Type"] == "Spending"]
+                    st.session_state.spend_df_preload = st.session_state.total_df_downloaded_spending.reset_index()
+                    st.session_state.previous_categories = st.session_state.total_df_downloaded[st.session_state.total_df_downloaded["Financial Type"] == "Future Category"]
+                    st.session_state.previous_categories = st.session_state.previous_categories.reset_index()
+            if uploaded_credit:
+                total_credit_df= oaic.open_ai_headers(uploaded_credit, st.session_state.credit_card, st.session_state.client)
+
+                # Process the credit transactions
+                st.session_state.processed_credit_df=dp.process_credit_transactions(total_credit_df)
+
+                ccs.combine_all_spending(st.session_state.credit_card)
+
+
+        csvd.download_as_csv()
 
         
-    elif (selected_tab not in ["Current Spending 📍", "Budgeting Goals 💰", "Future Categorization 📊"]) and (st.session_state.spend_df is not None):
-        st.info("Select a Financial Tool to Begin!")
+
+if selected_tab == "Current Spending 📍" and st.session_state.spend_df is not None:
+    cs.current_spending_page(relevant_columns, st.session_state.client)
+
+    
+if selected_tab == "Budgeting Goals 💰" and st.session_state.spend_df is not None:
+    sg.budgeting_page(st.session_state.spend_df, st.session_state.client)
+
+if selected_tab =="Future Categorization 📊" and st.session_state.spend_df is not None:
+    st.markdown('### Future Categorization 📊')
+    st.write("""This page allows you to categorize how you want future transactions to be categorized! Press on the category of a transaction name from the
+             dropdown, and hit the submit button below! 📊""")
+
+    unique_transactions = st.session_state.spend_df[["Description", "Category"]].drop_duplicates(subset=["Description"])
+
+            # Show editor
+    edited_df = st.data_editor(
+        unique_transactions,
+        column_config=st.session_state.column_config,
+        disabled=[col for col in unique_transactions.columns if col != "Category"],
+        column_order=["Description", "Category"],
+        key="category_data_editor",
+        use_container_width=True,
+        hide_index=True
+    )
+
+    category_changer = st.button("Press to Save Category Selections For Next Session!")
+
+    if category_changer:
+        st.session_state.future_categories = edited_df
+        st.session_state.future_categories["Financial Type"] = "Future Category"
+
+        st.success("Category Updated!")
+        time.sleep(2)
+        st.rerun()
 
 
-    elif st.session_state.spend_df is None:
-       # Description with more emphasis
-        st.markdown("""
-        This tool helps you **analyze** your spending habits by turning your credit card transactions into meaningful insights!  
-        📥 Simply upload your **CSV files** from your credit card company, and watch your data get neatly categorized.
+    
+elif (selected_tab not in ["Current Spending 📍", "Budgeting Goals 💰", "Future Categorization 📊"]) and (st.session_state.spend_df is not None):
+    st.info("Select a Financial Tool to Begin!")
 
-        💡 If you don't have a Chase card, many transactions may be categorized as "remaining." No worries! With or without a Chase card, we can send your transactions to **ChatGPT** for quick categorization — and you can always fine-tune them manually later!
 
-        ---
-        
-                    
-        ### ChatGPT Agreement:           
-        """)
+elif st.session_state.spend_df is None:
+   # Description with more emphasis
+    st.markdown("""
+    This tool helps you **analyze** your spending habits by turning your credit card transactions into meaningful insights!  
+    📥 Simply upload your **CSV files** from your credit card company, and watch your data get neatly categorized.
 
-        st.session_state.agree = st.checkbox("I understand that when I use AI categorization, my transaction data **(Transaction Dates, Descriptions, Amounts)** will be sent to OpenAI for processing to automatically categorize my transactions. I can change any categories afterward and this feature is optional. **No other information is shared**")
-        if st.session_state.agree:
-            st.info("""Great! Press "Process Data" to begin!""")
+    💡 If you don't have a Chase card, many transactions may be categorized as "remaining." No worries! With or without a Chase card, we can send your transactions to **ChatGPT** for quick categorization — and you can always fine-tune them manually later!
+
+    ---
+    
+                
+    ### ChatGPT Agreement:           
+    """)
+
+    st.session_state.agree = st.checkbox("I understand that when I use AI categorization, my transaction data **(Transaction Dates, Descriptions, Amounts)** will be sent to OpenAI for processing to automatically categorize my transactions. I can change any categories afterward and this feature is optional. **No other information is shared**")
+    if st.session_state.agree:
+        st.info("""Great! Press "Process Data" to begin!""")
