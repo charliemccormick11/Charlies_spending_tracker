@@ -157,7 +157,6 @@ def open_ai_random_categorization(client):
     - Your output must be a **JSON dictionary** with the key "Category". 
     - The value of "Category" should be a **list** of categories, one per transaction, in the same order as the transactions in the input data.
     - The **number of categories** returned must match the **number of transactions** exactly. If there are 30 transactions, there should be 30 values in the list!
-    - Each value should be a string, not a float
     - Only the categories should be returned — no other text, explanations, or additional information.
     
     Here are the transactions to categorize:
@@ -187,7 +186,8 @@ def open_ai_random_categorization(client):
             categorized_df = pd.DataFrame({
                 "Category": all_categories
             })
-    
+
+            st.dataframe(categorized_df)
             # Join back with original DataFrame if needed
             final_df = readable_remaining_df_feed.copy()
             final_df["Category"] = categorized_df["Category"].astype(str)
