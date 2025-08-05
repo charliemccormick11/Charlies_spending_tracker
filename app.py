@@ -69,8 +69,8 @@ selected_tab= st.pills("Select a Financial Tool", options = tabs, selection_mode
 
 
 #Sidebar for Uploading CSV files
-st.session_state.demo_mode = st.sidebar.checkbox("Try Demo Mode (with sample data)!")
-st.sidebar.divider()
+#st.session_state.demo_mode = st.sidebar.checkbox("Try Demo Mode (with sample data)!")
+#st.sidebar.divider()
 
 
 relevant_columns = ["Transaction Date", "Description", "Amount", "Category"]
