@@ -10,10 +10,8 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     dfs_credit = [pd.read_csv(file, header=None) for file in uploaded_credit]
     total_credit_df = pd.concat(dfs_credit, ignore_index=True)
 
-    credit_sample = total_credit_df.head(15)
+    credit_sample = total_credit_df.head(5)
     #Code that is calling the open AI API
-    st.dataframe(credit_sample)
-    
     # Modify prompt to conditionally check the credit card type
     prompt = f"""
     I have uploaded the following CSV data:
@@ -58,7 +56,6 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     try:
     # Parse the JSON response
         st.session_state.column_info = json.loads(completion.choices[0].message.content)
-        st.write(st.session_state.column_info)
 
         
     except Exception as e:
