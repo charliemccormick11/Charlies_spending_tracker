@@ -141,7 +141,8 @@ def open_ai_random_categorization(client):
         - If transaction name is null, put "Remaining" as the category
 
         Output Format:
-        - Your output must be a **JSON dictionary** with the key "Category". 
+        - Your output must be a **JSON dictionary** with the keys "Transaction Name" and "Category". 
+        - The value of "Transaction Name" should be the **list** of transaction names, in the same order as the transactions in the input data.
         - The value of "Category" should be a **list** of categories, one per transaction, in the same order as the transactions in the input data.
         - The **number of categories** returned must match the **number of transactions** exactly. If there are 100 transactions, there should be 100 values in the list!
         - Only the categories should be returned — no other text, explanations, or additional information.
@@ -149,7 +150,6 @@ def open_ai_random_categorization(client):
         Here are the transactions to categorize:
         {readable_remaining_df_feed.to_csv(index=False, header=False)}
 
-        Check to ensure the index of the original dataframe and then length of the list align!
         """
 
 
