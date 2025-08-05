@@ -147,15 +147,15 @@ def open_ai_random_categorization(client):
             Transactions to categorize:
             {readable_remaining_df_feed.to_csv(index=False)}
             
-            Return the results as a DICTIONARY. The key should be "Category". The values will be the categories in order
+            Return the results as a Python JSON DICTIONARY. The key should be "Category". The values will be the categories in order
             Ensure the number of values in the output EXACTLY matches the number of rows in the input. Otherwise my code won't work!
 
-            ONLY INCLUDE THE DICT IN THE RESPONSE!
+            ONLY INCLUDE THE Python JSON DICTIONARY IN THE RESPONSE!
             
             """
 
             completion = client.chat.completions.create(
-            model="gpt-4",  # Using a more stable model for categorization
+            model="gpt-4-turbo",  # Using a more stable model for categorization
             messages=[{
                 "role": "user",
                 "content": prompt
