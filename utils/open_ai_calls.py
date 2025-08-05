@@ -148,7 +148,7 @@ def open_ai_random_categorization(client):
             {readable_remaining_df_feed.to_csv(index=False)}
             
             Return the results as a DICTIONARY. The key should be "Category". The values will be the categories in order
-            Ensure the number of values in the output EXACTLY matches the number of rows in the input.
+            Ensure the number of values in the output EXACTLY matches the number of rows in the input. Otherwise my code won't work!
             
             """
 
@@ -158,16 +158,16 @@ def open_ai_random_categorization(client):
                 "role": "user",
                 "content": prompt
             }],
-            temperature=0.1  # Low temperature for more predictable results
+            temperature=0.5  # Low temperature for more predictable results
             )
             
             try:
                 # Parse the result from the GPT response
-                result_csv = completion.choices[0].message.content
+                result_dict = completion.choices[0].message.content
 
                 st.write(result_csv)
                 # Convert the CSV content into a DataFrame
-                #remaining_categorized = pd.read_csv(io.StringIO(result_csv))
+                remaining_categorized = pd.dataframe(result_dict)
 
             except Exception as e:
                 st.error(f"Error processing batch: {str(e)}")
