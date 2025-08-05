@@ -109,8 +109,7 @@ def open_ai_random_categorization(client):
             readable_remaining_df_feed = readable_remaining_df[["Transaction Date", "Description", "Amount"]]
             readable_remaining_df_feed.reset_index(drop=True, inplace=True)
     
-            st.write(f"Total transactions being categorized by ChatGPT: {len(readable_remaining_df_feed)}")
-            st.dataframe(readable_remaining_df_feed)
+            st.write(f"Total transactions being categorized by ChatGPT🚀: {len(readable_remaining_df_feed)}")
     
             # Initialize progress bar and lists to collect all results
             batch_size = 40
@@ -193,9 +192,9 @@ def open_ai_random_categorization(client):
             final_df = readable_remaining_df_feed.copy()
             final_df["Category"] = categorized_df["Category"]
     
-            st.session_state.remaining_credit_df = final_df
-            st.success("All transactions categorized.")
-            st.dataframe(final_df)
+            st.session_state.spend_df_newload.loc[st.session_state.spend_df_newload["Category"] == "Remaining", "Category"] = final_df["Category"]
+            st.success("Categorization successful! 🎉")
+
     
         except Exception as e:
             st.error(f"Unexpected error: {str(e)}")
