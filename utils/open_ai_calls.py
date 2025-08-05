@@ -28,7 +28,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     - Transaction Date
     - Transaction Description (names of places purchased)
     - Amount
-    - Category (Food & Drink, Groceries, Entertainment, Shopping, etc.) only if it's a Chase credit card
+    - Category (Food & Drink, Groceries, Entertainment, Shopping, etc.) only if it's a Chase credit card. Otherwise it will be null
     3. Only include category index for Chase (the index will likely be 3)
     4. If there are two amount columns (Credit and Debit), provide their indices and include them as "credit" and "debit".
     4.4 If there is one amount column, put it as 'debit'.
@@ -41,6 +41,10 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     if credit_card == "Chase":
         # If it's Chase, add additional logic to handle category column index if necessary
         prompt = prompt.replace("Please:", "Please that the category column index is provided as this is a Chase credit card!")
+
+    else:
+        prompt = prompt.replace("Please:", "Please leave the category index as null")
+
 
     completion = client.chat.completions.create(
     model="gpt-4-turbo",
