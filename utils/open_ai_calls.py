@@ -179,7 +179,7 @@ def open_ai_random_categorization(client):
 
 
             # Update the main spend_df_newload with the new categories
-            st.session_state.spend_df_newload.loc[st.session_state.spend_df_newload["Category"] == "Remaining", "Category"] = readable_remaining_df["Category"].values
+            st.session_state.spend_df_newload.loc[st.session_state.spend_df_newload["Category"] == "Remaining", "Category"] = readable_remaining_df["Category"]
             
             st.success("Categorization successful! 🎉")
 
