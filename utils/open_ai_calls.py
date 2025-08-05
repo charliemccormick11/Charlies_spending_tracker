@@ -103,93 +103,102 @@ def open_ai_random_categorization(client):
     if st.session_state.remaining_credit_df is not None:
         try:
             # Get remaining transactions
-            readable_remaining_df = st.session_state.spend_df_newload[st.session_state.spend_df_newload["Category"]=="Remaining"]
-            readable_remaining_df_feed = readable_remaining_df[["Transaction Date", "Description" , "Amount"]]
-            readable_remaining_df_feed.reset_index()
-            st.write(len(readable_remaining_df_feed))
+            readable_remaining_df = st.session_state.spend_df_newload[
+                st.session_state.spend_df_newload["Category"] == "Remaining"
+            ]
+            readable_remaining_df_feed = readable_remaining_df[["Transaction Date", "Description", "Amount"]]
+            readable_remaining_df_feed.reset_index(drop=True, inplace=True)
+    
+            st.write(f"Total transactions to categorize: {len(readable_remaining_df_feed)}")
             st.dataframe(readable_remaining_df_feed)
-            prompt = f"""
-        You are a categorization assistant for personal finance transactions.
-
-        Categories for transaction classification:
-        - Alcohol 🍺
-        - Dining 🍴
-        - Takeout 🍔
-        - Groceries 🛒
-        - Golf ⛳
-        - Gambling 🎰
-        - Misc Entertainment 🚀
-        - Fashion 👚
-        - Misc Shopping 🚀
-        - Rideshare 🚘💼
-        - Misc Travel 🚀
-        - Gas ⛽
-        - Public Transportation 🚍
-        - Insurance 🛡️
-        - Misc Car 🚀
-        - Health 💪
-        - Gifts/Donations 🎁🙏
-        - Bills 📜
-        - Subscriptions 💳🎬
-        - Fees & Adjustments ⚖️
-        - Remaining (if none of the above seem applicable)
-        
-        Rules for categorization:
-        - If a transaction fits a category, use that category. If unsure, categorize it as "Remaining".
-        - Chain restaurants should be categorized as "Takeout 🍔", so be sure to identify the name if applicable.
-        - Ensure that every transaction receives a category.
-        - If transaction name is null, put "Remaining" as the category
-
-        Output Format:
-        - Your output must be a **JSON dictionary** with the key "Category". 
-        - The value of "Category" should be a **list** of categories, one per transaction, in the same order as the transactions in the input data.
-        - The **number of categories** returned must match the **number of transactions** exactly. If there are 100 transactions, there should be 100 values in the list!
-        - Only the categories should be returned — no other text, explanations, or additional information.
-
-        Here are the transactions to categorize:
-        {readable_remaining_df_feed.to_csv(index=False, header=False)}
-
-        """
-
-
-            completion = client.chat.completions.create(
-            model="gpt-4",  # Using a more stable model for categorization
-            messages=[{
-                "role": "user",
-                "content": prompt
-            }],
-            temperature=0.1  # Low temperature for more predictable results
-            )
-            
-            try:
-                # Parse the result from the GPT response
-                result_dict = json.loads(completion.choices[0].message.content)
-
-                st.write(result_dict)
-                # Convert the CSV content into a DataFrame
-                remaining_categorized = pd.DataFrame(result_dict)
-
-            except Exception as e:
-                st.error(f"Error processing batch: {str(e)}")
-                return
-
-
-            # Update the Category column in the original readable_remaining_df
-            readable_remaining_df["Category"] = remaining_categorized["Category"].values
-            
-
-
-            # Update the main spend_df_newload with the new categories
-            st.session_state.spend_df_newload.loc[st.session_state.spend_df_newload["Category"] == "Remaining", "Category"] = readable_remaining_df["Category"]
-            
-            st.success("Categorization successful! 🎉")
-
-
-
-
-                
+    
+            # Initialize progress bar and lists to collect all results
+            batch_size = 30
+            all_names = []
+            all_categories = []
+            progress_bar = st.progress(0)
+            total_batches = (len(readable_remaining_df_feed) - 1) // batch_size + 1
+    
+            # Loop over batches
+            for i in range(0, len(readable_remaining_df_feed), batch_size):
+                batch = readable_remaining_df_feed.iloc[i:i+batch_size]
+    
+                prompt = f"""
+    You are a categorization assistant for personal finance transactions.
+    
+    Categories for transaction classification:
+    - Alcohol 🍺
+    - Dining 🍴
+    - Takeout 🍔
+    - Groceries 🛒
+    - Golf ⛳
+    - Gambling 🎰
+    - Misc Entertainment 🚀
+    - Fashion 👚
+    - Misc Shopping 🚀
+    - Rideshare 🚘💼
+    - Misc Travel 🚀
+    - Gas ⛽
+    - Public Transportation 🚍
+    - Insurance 🛡️
+    - Misc Car 🚀
+    - Health 💪
+    - Gifts/Donations 🎁🙏
+    - Bills 📜
+    - Subscriptions 💳🎬
+    - Fees & Adjustments ⚖️
+    - Remaining (if none of the above seem applicable)
+    
+    Rules for categorization:
+    - If a transaction fits a category, use that category. If unsure, categorize it as "Remaining".
+    - Chain restaurants should be categorized as "Takeout 🍔", so be sure to identify the name if applicable.
+    - Ensure that every transaction receives a category.
+    - If transaction name is null, put "Remaining" as the category
+    
+    Output Format:
+    - Your output must be a **JSON dictionary** with the key "Category". 
+    - The value of "Category" should be a **list** of categories, one per transaction, in the same order as the transactions in the input data.
+    - The **number of categories** returned must match the **number of transactions** exactly. If there are 30 transactions, there should be 30 values in the list!
+    - Only the categories should be returned — no other text, explanations, or additional information.
+    
+    Here are the transactions to categorize:
+    {batch.to_csv(index=False, header=False)}
+    """
+    
+                completion = client.chat.completions.create(
+                    model="gpt-4",
+                    messages=[{
+                        "role": "user",
+                        "content": prompt
+                    }],
+                    temperature=0.1
+                )
+    
+                try:
+                    result_dict = json.loads(completion.choices[0].message.content)
+                    all_categories.extend(result_dict.get("Category", []))
+                except Exception as e:
+                    st.error(f"Error processing batch {i // batch_size + 1}: {str(e)}")
+                    all_categories.extend(["Remaining"] * len(batch))
+    
+                # Update progress bar
+                progress_bar.progress(min((i + batch_size) / len(readable_remaining_df_feed), 1.0))
+    
+            # Merge results into a DataFrame
+            categorized_df = pd.DataFrame({
+                "Category": all_categories
+            })
+    
+            # Join back with original DataFrame if needed
+            final_df = readable_remaining_df_feed.copy()
+            final_df["Category"] = categorized_df["Category"]
+    
+            st.session_state.remaining_credit_df = final_df
+            st.success("All transactions categorized.")
+            st.dataframe(final_df)
+    
         except Exception as e:
-            st.error(f"Error in categorization process: {str(e)}")
+            st.error(f"Unexpected error: {str(e)}")
 
 
 def open_ai_budgetGPT(alcohol_low_value, takeout_low_value, grocery_low_value, shopping_total_low_value, entertainment_total_low_value, health_low_value, no_bills_spending_low_value, dataframe_selected, category_selected, client):
