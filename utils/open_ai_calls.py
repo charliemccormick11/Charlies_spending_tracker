@@ -105,6 +105,7 @@ def open_ai_random_categorization(client):
             # Get remaining transactions
             readable_remaining_df = st.session_state.spend_df_newload[st.session_state.spend_df_newload["Category"]=="Remaining"]
             readable_remaining_df_feed = readable_remaining_df[["Transaction Date", "Description" , "Amount"]]
+            readable_remaining_df_feed.reset_index()
             st.write(len(readable_remaining_df_feed))
             st.dataframe(readable_remaining_df_feed)
             prompt = f"""
@@ -147,6 +148,8 @@ def open_ai_random_categorization(client):
 
         Here are the transactions to categorize:
         {readable_remaining_df_feed.to_csv(index=False, header=False)}
+
+        Check to ensure the index of the original dataframe and then length of the list align!
         """
 
 
