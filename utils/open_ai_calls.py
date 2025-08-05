@@ -26,7 +26,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     1.2 If the first row contains data (e.g., values like "2023-01-01", "100"), set 'header' to False.
     2. Regardless of if there's a header, provide the column indices (starting from 0) for the following columns:
     - Transaction Date
-    - Description (names of places purchased) which can NEVER be null
+    - Description (in all capital letters, names of merchants) 
     - Amount
     - Category (Food & Drink, Groceries, Entertainment, Shopping, etc.) index is likely 3
     4. If there are two amount columns (Credit and Debit), provide their indices and include them as "credit" and "debit".
