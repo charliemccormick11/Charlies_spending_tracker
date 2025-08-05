@@ -128,6 +128,7 @@ def process_credit_transactions(df):
     df.loc[(df["Extracted Description"].apply(lambda x: any("walgreens" in str(item).lower() for item in x))) & (df["Amount"] > -25),"Category"] = "Groceries"
     df.loc[(df["Extracted Description"].apply(lambda x: any("target" in str(item).lower() for item in x))) & (df["Amount"] > -50),"Category"] = "Groceries"
     df = df[~df["Clean Description"].str.contains("online payment", na=False)]
+    df = df[~df["Clean Description"].str.contains("payment", na=False)]
     df["Matched Bar"] = df["Extracted Description"].apply(bars.matched_credit_bar_transaction)
     df["Matched Sub"]=df["Clean Description"].apply(match_sub)
     df["Matched Book"] = df["Clean Description"].apply(match_sportsbook)
