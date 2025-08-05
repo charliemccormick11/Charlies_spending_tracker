@@ -6,8 +6,6 @@ import pandas as pd
 
 
 def download_as_csv():
-
-
     
     subset_cols = ["Raw Description", "Raw Amount", "Raw Date"]
     if st.session_state.spend_df_preload is not None:
@@ -27,8 +25,10 @@ def download_as_csv():
 
 
     if 'all_categories' not in st.session_state:
+        st.session_state.spend_df['Category'] = st.session_state.spend_df['Category'].astype(str)
         st.session_state.all_categories = sorted(set(st.session_state.spend_df['Category'].unique()))
     else:
+        st.session_state.spend_df['Category'] = st.session_state.spend_df['Category'].astype(str)
         # Only update if the underlying data has changed
         current_categories = set(st.session_state.spend_df['Category'].unique())
         if current_categories != set(st.session_state.all_categories):
