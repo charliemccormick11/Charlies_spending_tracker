@@ -135,8 +135,7 @@ def open_ai_random_categorization(client):
             
             Rules for categorization:
             - **Chain restaurants** should be categorized as "Takeout 🍔". Be sure to identify the name of the restaurant if applicable and classify it correctly.
-            - Ensure every transaction gets assigned one of the categories listed above, otherwise list as "remaining".
-            - This way, the number of output values still equals the number of input values!
+            - Ensure every transaction gets assigned one of the categories listed above, otherwise list as "remaining". You MUST have a category for every transaction, even if it's remaining.
             - **Here are the column headers for the CSV**:
               - "Transaction Date"
               - "Description"
@@ -146,11 +145,10 @@ def open_ai_random_categorization(client):
             
             Transactions to categorize:
             {readable_remaining_df_feed.to_csv(index=False)}
-            
-            Return the results as a Python JSON DICTIONARY. The key should be "Category". The values will be the categories in order
-            Ensure the number of values in the output EXACTLY matches the number of rows in {readable_remaining_df_feed.to_csv(index=False)}. Categorize transactions as "remaining" if necessary to make them align. Otherwise my code won't work!
 
-            ONLY INCLUDE THE Python JSON DICTIONARY IN THE RESPONSE!
+            Ensure the number of values in the output EXACTLY matches the number of rows in {readable_remaining_df_feed.to_csv(index=False)}. Categorize transactions as "remaining" if necessary to make them align. Otherwise my code won't work!
+            Return the results as a ONLY Python JSON DICTIONARY. The key should be "Category". The values will be the categories in order
+            
             
             """
 
