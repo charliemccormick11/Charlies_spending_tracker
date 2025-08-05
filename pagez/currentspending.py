@@ -153,6 +153,10 @@ def current_spending_page(relevant_columns, client):
 
                 st.session_state.spend_df = updated_spend_df
             st.session_state.spend_df.sort_values("Transaction Date", ascending=False)
+            st.success("Category Updated!")
+            time.sleep(2)
+            st.rerun()
+
 
 
 
