@@ -132,9 +132,10 @@ def open_ai_random_categorization(client):
         - Bills 📜
         - Subscriptions 💳🎬
         - Fees & Adjustments ⚖️
+        - Remaining (if none of the above seem applicable)
         
         Rules for categorization:
-        - If a transaction fits a category, use that category. If unsure, categorize it as "remaining".
+        - If a transaction fits a category, use that category. If unsure, categorize it as "Remaining".
         - Chain restaurants should be categorized as "Takeout 🍔", so be sure to identify the name if applicable.
         - Ensure that every transaction receives a category.
 
@@ -147,7 +148,7 @@ def open_ai_random_categorization(client):
         Here are the transactions to categorize:
         {readable_remaining_df_feed.to_csv(index=False, header=False)}
 
-        Going through each row, either put a category, or "remaining" if you aren't sure
+        Going through each row, either put a category, or "Remaining" if you aren't sure
         """
 
 
