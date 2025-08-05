@@ -6,15 +6,15 @@ import io
 
 def open_ai_headers(uploaded_credit, credit_card, client):
 
-
     st.sidebar.success(f"{len(uploaded_credit)} credit file(s) uploaded.")
-    dfs_credit = [pd.read_csv(file, header= None) for file in uploaded_credit]
+    dfs_credit = [pd.read_csv(file, header=None) for file in uploaded_credit]
     total_credit_df = pd.concat(dfs_credit, ignore_index=True)
 
     credit_sample = total_credit_df.head(15)
     #Code that is calling the open AI API
     st.dataframe(credit_sample)
     
+    # Modify prompt to conditionally check the credit card type
     prompt = f"""
     I have uploaded the following CSV data:
 
@@ -28,14 +28,19 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     - Transaction Date
     - Transaction Description (names of places purchased)
     - Amount
-    - Category (if present)
-    - these would be Dining, Food, Groceries, etc.
-    3. If the Category column is missing, mention that as None.
+    - Category (Food & Drink, Groceries, Entertainment, Shopping, etc.)
+    3. If the Category column is missing, mention that as None (it won't be missing for Chase)
     4. If there are two amount columns (Credit and Debit), provide their indices and include them as "credit" and "debit".
     4.4 If there is one amount column, put it as 'debit'.
-    5. Return ONLY the response as a Python JSON dictionary with the following keys: 'header', 'transaction_date', 'transaction_name', 'credit', 'debit', 'category'. No additional text, explanations, or strings. Only return the dictionary, nothing else. Make format identical for with or without headers!
-    6. Remove anything else but the dictionary and don't display as a code block
+    5. If the credit card is "Chase", return the index of the Category column.
+    6. Return ONLY the response as a Python JSON dictionary with the following keys: 'header', 'transaction_date', 'transaction_name', 'credit', 'debit', 'category'. No additional text, explanations, or strings. Only return the dictionary, nothing else. Make format identical for with or without headers!
+    7. Remove anything else but the dictionary and don't display as a code block
     """
+
+    # Additional check before sending the prompt
+    if credit_card == "Chase":
+        # If it's Chase, add additional logic to handle category column index if necessary
+        prompt = prompt.replace("Please:", "Please that the category column index is provided as this is a Chase credit card!")
 
     completion = client.chat.completions.create(
     model="gpt-4-turbo",
