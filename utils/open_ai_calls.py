@@ -191,7 +191,8 @@ def open_ai_random_categorization(client):
     
             # Join back with original DataFrame if needed
             final_df = readable_remaining_df_feed.copy()
-            final_df["Category"] = categorized_df["Category"]
+            final_df["Category"] = categorized_df["Category"].astype(str)
+            st.dataframe(final_df)
     
             st.session_state.spend_df_newload.loc[st.session_state.spend_df_newload["Category"] == "Remaining", "Category"] = final_df["Category"]
             st.success("Categorization successful! 🎉")
