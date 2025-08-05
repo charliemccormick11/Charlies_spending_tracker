@@ -160,7 +160,7 @@ def open_ai_random_categorization(client):
                 "role": "user",
                 "content": prompt
             }],
-            temperature=0.2  # Low temperature for more predictable results
+            temperature=0.1  # Low temperature for more predictable results
             )
             
             try:
