@@ -105,6 +105,8 @@ def open_ai_random_categorization(client):
             # Get remaining transactions
             readable_remaining_df = st.session_state.spend_df_newload[st.session_state.spend_df_newload["Category"]=="Remaining"]
             readable_remaining_df_feed = readable_remaining_df[["Transaction Date", "Description" , "Amount"]]
+            st.write(len(readable_remaining_df_feed))
+            st.dataframe(readable_remaining_df_feed)
             prompt = f"""
         You are a categorization assistant for personal finance transactions.
 
