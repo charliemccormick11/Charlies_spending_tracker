@@ -135,8 +135,8 @@ def open_ai_random_categorization(client):
             
             Rules for categorization:
             - **Chain restaurants** should be categorized as "Takeout 🍔". Be sure to identify the name of the restaurant if applicable and classify it correctly.
-            - **Do not leave any transactions uncategorized** unless there is absolutely no appropriate category available. Ensure every transaction gets one of the categories listed above.
-            - If a transaction is unclear, try your best to place it in the most appropriate category based on the description.
+            - **Do not leave any transactions uncategorized** unless there is absolutely no appropriate category available. Ensure every transaction gets one of the categories listed above, otherwise list as "remaining".
+            - This way, the number of output values still equals the number of input values!
             - **Here are the column headers for the CSV**:
               - "Transaction Date"
               - "Description"
