@@ -17,43 +17,24 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     
     prompt = f"""
     I have uploaded the following CSV data:
-    
+
     {credit_sample}
-    
+
     Please:
-    1. Determine if there is a header row in the data:
-       - If the first row contains column names (e.g., "Transaction Date", "Amount"), set 'header' to True.
-       - If the first row contains data (e.g., values like "2023-01-01", "100"), set 'header' to False.
-    
-    2. Identify the following columns based on their names (case-sensitive) and return their column indices (starting from 0):
-       - Transaction Date
-       - Description (names of the places where the purchases were made)
-       - Amount
-       - Category (if present)
-       
-       Make sure the column names are exact. If any of these columns are missing or labeled differently, provide your best guess for the column's index. **Do not return null** for the transaction name column (Description). Always make your best guess for the transaction name column, even if it may be incorrect.
-    
-    3. The transaction name column (Description) is **always the unique name of a merchant**. The name may be in **all caps** or have variations in formatting, but it will represent the merchant or place where the transaction occurred.
-    
-    4. If there are two amount columns (Credit and Debit), provide their indices and label them as 'credit' and 'debit'. If only one amount column exists, label it as 'debit'.
-    
-    5. Exclude any rows that appear to be payments to a credit card (such as online payments or payments to financial institutions). Identify payments by their description.
-    
-    6. **The transaction name column (Description) must never be null**. Even if the description is unclear, missing, or in an unusual format (like all caps), make your best guess for the column index and provide it. If the transaction name is missing or ambiguous, provide your best guess (even if wrong) and proceed with categorization.
-    
-    7. Return the response **ONLY as a Python JSON dictionary** with the following keys and values:
-       - 'header' : Boolean value (True or False)
-       - 'transaction_date' : Column index for "Transaction Date" (or `null` if not found)
-       - 'transaction_name' : Column index for "Description" (NEVER null, even if guessed)
-       - 'credit' : Column index for "Credit" (or `null` if not found)
-       - 'debit' : Column index for "Debit" (or `null` if not found)
-       - 'category' : Column index for "Category" (or `null` if not found)
-    
-       Ensure that **none of these columns have the same index number**. If any column is missing or mislabeled, provide the best guess or `null` where necessary.
-    
-    Please ensure the JSON format is **consistent** regardless of whether the header row is present or not. Do **not** include any additional text, explanations, or strings. The output should **only** be a **JSON dictionary**, nothing else!
-    
-    The response must be in a valid JSON format and contain no extra information!
+    1. Check if there is a header row in the data.
+    1.1 If the first row contains column names (e.g., "Transaction Date", "Amount"), set 'header' to True.
+    1.2 If the first row contains data (e.g., values like "2023-01-01", "100"), set 'header' to False.
+    2. Regardless of if there's a header, provide the column indices (starting from 0) for the following columns:
+    - Transaction Date
+    - Transaction Description (names of places purchased)
+    - Amount
+    - Category (if present)
+    - these would be Dining, Food, Groceries, etc.
+    3. If the Category column is missing, mention that as None.
+    4. If there are two amount columns (Credit and Debit), provide their indices and include them as "credit" and "debit".
+    4.4 If there is one amount column, put it as 'debit'.
+    5. Return ONLY the response as a Python JSON dictionary with the following keys: 'header', 'transaction_date', 'transaction_name', 'credit', 'debit', 'category'. No additional text, explanations, or strings. Only return the dictionary, nothing else. Make format identical for with or without headers!
+    6. Remove anything else but the dictionary and don't display as a code block
     """
 
     completion = client.chat.completions.create(
