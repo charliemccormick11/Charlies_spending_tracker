@@ -146,6 +146,8 @@ def open_ai_random_categorization(client):
 
         Here are the transactions to categorize:
         {readable_remaining_df_feed.to_csv(index=False, header=False)}
+
+        Going through each row, either put a category, or "remaining" if you aren't sure
         """
 
 
