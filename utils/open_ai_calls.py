@@ -132,17 +132,20 @@ def open_ai_random_categorization(client):
         - Bills 📜
         - Subscriptions 💳🎬
         - Fees & Adjustments ⚖️
+        
+        Rules for categorization:
+        - If a transaction fits a category, use that category. If unsure, categorize it as "remaining".
+        - Chain restaurants should be categorized as "Takeout 🍔", so be sure to identify the name if applicable.
+        - Ensure that every transaction receives a category.
 
-        Rules:
-        - **Chain restaurants** are categorized as "Takeout 🍔". Identify the name if applicable.
-        - **Every transaction must be categorized**, either from the listed categories or as "remaining".
-        - Output only the **categories**, corresponding one-to-one with the transactions.
-        - Each transaction is categorized based on its description, using the categories above.
+        Output Format:
+        - Your output must be a **JSON dictionary** with the key "Category". 
+        - The value of "Category" should be a **list** of categories, one per transaction, in the same order as the transactions in the input data.
+        - The **number of categories** returned must match the **number of transactions** exactly.
+        - Only the categories should be returned — no other text, explanations, or additional information.
 
         Here are the transactions to categorize:
         {readable_remaining_df_feed.to_csv(index=False, header=False)}
-
-        Your output must be a Python JSON dictionary with the key "Category". The value should be a list of categories, in the same order as the transactions, without any other text. If a transaction doesn't fit any category, categorize it as "remaining". The number of categories should exactly match the number of rows in the input data.
         """
 
 
