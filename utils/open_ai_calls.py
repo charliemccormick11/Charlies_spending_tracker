@@ -138,6 +138,7 @@ def open_ai_random_categorization(client):
         - If a transaction fits a category, use that category. If unsure, categorize it as "Remaining".
         - Chain restaurants should be categorized as "Takeout 🍔", so be sure to identify the name if applicable.
         - Ensure that every transaction receives a category.
+        - If transaction name is null, put "Remaining" as the category
 
         Output Format:
         - Your output must be a **JSON dictionary** with the key "Category". 
