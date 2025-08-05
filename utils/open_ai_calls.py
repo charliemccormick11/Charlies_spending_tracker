@@ -90,7 +90,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
         elif st.session_state.column_info['header'] == False:
             # For non-Chase statements without headers, assign columns based on indices
             total_credit_df["Transaction Date"] = total_credit_df.iloc[:, st.session_state.column_info['transaction_date']]
-            total_credit_df["Description"] = total_credit_df.iloc[:, st.session_state.column_info['transaction_name']]
+            total_credit_df["Description"] = total_credit_df.iloc[:, st.session_state.column_info['description']]
             total_credit_df["Amount"] = total_credit_df.iloc[:, st.session_state.column_info['debit']]
             # Only keep the three essential columns since this is a non-Chase statement
             total_credit_df = total_credit_df[["Transaction Date", "Description", "Amount"]]
