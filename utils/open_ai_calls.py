@@ -152,7 +152,7 @@ def open_ai_random_categorization(client):
 
 
             completion = client.chat.completions.create(
-            model="gpt-4-turbo",  # Using a more stable model for categorization
+            model="gpt-4",  # Using a more stable model for categorization
             messages=[{
                 "role": "user",
                 "content": prompt
