@@ -57,11 +57,11 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     """
 
     completion = client.chat.completions.create(
-    model="gpt-4",
+    model="gpt-4-turbo",
     messages=[{
         "role": "user",
-        "content": prompt
-    }]
+        "content": prompt,
+    }], temperature=0
     )
 
     # Parse OpenAI response into a dictionary
