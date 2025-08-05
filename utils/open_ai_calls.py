@@ -26,7 +26,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     1.2 If the first row contains data (e.g., values like "2023-01-01", "100"), set 'header' to False.
     2. Regardless of if there's a header, provide the column indices (starting from 0) for the following columns:
     - Transaction Date
-    - Transaction Description (names of places purchased)
+    - Transaction Description (names of places purchased) which can NEVER be null
     - Amount
     - Category (Food & Drink, Groceries, Entertainment, Shopping, etc.) only if it's a Chase credit card. Otherwise it will be null
     3. Only include category index for Chase (the index will likely be 3)
