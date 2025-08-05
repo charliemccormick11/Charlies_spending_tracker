@@ -109,7 +109,7 @@ def open_ai_random_categorization(client):
             readable_remaining_df_feed = readable_remaining_df[["Transaction Date", "Description", "Amount"]]
             readable_remaining_df_feed.reset_index(drop=True, inplace=True)
     
-            st.write(f"Total transactions to categorize: {len(readable_remaining_df_feed)}")
+            st.write(f"Total transactions being categorized by ChatGPT: {len(readable_remaining_df_feed)}")
             st.dataframe(readable_remaining_df_feed)
     
             # Initialize progress bar and lists to collect all results
