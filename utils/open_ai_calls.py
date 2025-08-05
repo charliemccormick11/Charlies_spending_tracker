@@ -165,11 +165,11 @@ def open_ai_random_categorization(client):
             
             try:
                 # Parse the result from the GPT response
-                result_dict = completion.choices[0].message.content
+                result_dict = json.loads(completion.choices[0].message.content)
 
                 st.write(result_dict)
                 # Convert the CSV content into a DataFrame
-                remaining_categorized = pd.dataframe(result_dict)
+                remaining_categorized = pd.DataFrame(result_dict)
 
             except Exception as e:
                 st.error(f"Error processing batch: {str(e)}")
