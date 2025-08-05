@@ -109,48 +109,42 @@ def open_ai_random_categorization(client):
             readable_remaining_df = st.session_state.spend_df_newload[st.session_state.spend_df_newload["Category"]=="Remaining"]
             readable_remaining_df_feed = readable_remaining_df[["Transaction Date", "Description" , "Amount"]]
             prompt = f"""
-            You are a categorization assistant for personal finance transactions.
-            
-            Here are the categories that a transaction can be assigned:
-            - Alcohol 🍺
-            - Dining 🍴
-            - Takeout 🍔
-            - Groceries 🛒
-            - Golf ⛳
-            - Gambling 🎰
-            - Misc Entertainment 🚀
-            - Fashion 👚
-            - Misc Shopping 🚀
-            - Rideshare 🚘💼
-            - Misc Travel 🚀
-            - Gas ⛽
-            - Public Transportation 🚍
-            - Insurance 🛡️
-            - Misc Car 🚀
-            - Health 💪
-            - Gifts/Donations 🎁🙏
-            - Bills 📜
-            - Subscriptions 💳🎬
-            - Fees & Adjustments ⚖️
-            
-            Rules for categorization:
-            - **Chain restaurants** should be categorized as "Takeout 🍔". Be sure to identify the name of the restaurant if applicable and classify it correctly.
-            - Ensure every transaction gets assigned one of the categories listed above, otherwise list as "remaining". You MUST have a category for every transaction, even if it's remaining.
-            - **Here are the column headers for the CSV**:
-              - "Transaction Date"
-              - "Description"
-              - "Amount"
-            
-            Categorize the following transactions below based on the descriptions, ensuring you assign them the appropriate category from the list above.
-            
-            Transactions to categorize:
-            {readable_remaining_df_feed.to_csv(index=False)}
+        You are a categorization assistant for personal finance transactions.
 
-            Ensure the number of values in the output EXACTLY matches the number of rows in {readable_remaining_df_feed.to_csv(index=False)}. Categorize transactions as "remaining" if necessary to make them align. Otherwise my code won't work!
-            Return the results as a ONLY Python JSON DICTIONARY. The key should be "Category". The values will be the categories in order
-            
-            
-            """
+        Categories for transaction classification:
+        - Alcohol 🍺
+        - Dining 🍴
+        - Takeout 🍔
+        - Groceries 🛒
+        - Golf ⛳
+        - Gambling 🎰
+        - Misc Entertainment 🚀
+        - Fashion 👚
+        - Misc Shopping 🚀
+        - Rideshare 🚘💼
+        - Misc Travel 🚀
+        - Gas ⛽
+        - Public Transportation 🚍
+        - Insurance 🛡️
+        - Misc Car 🚀
+        - Health 💪
+        - Gifts/Donations 🎁🙏
+        - Bills 📜
+        - Subscriptions 💳🎬
+        - Fees & Adjustments ⚖️
+
+        Rules:
+        - **Chain restaurants** are categorized as "Takeout 🍔". Identify the name if applicable.
+        - **Every transaction must be categorized**, either from the listed categories or as "remaining".
+        - Output only the **categories**, corresponding one-to-one with the transactions.
+        - Each transaction is categorized based on its description, using the categories above.
+
+        Here are the transactions to categorize:
+        {readable_remaining_df_feed.to_csv(index=False, header=False)}
+
+        Your output must be a Python JSON dictionary with the key "Category". The value should be a list of categories, in the same order as the transactions, without any other text. If a transaction doesn't fit any category, categorize it as "remaining". The number of categories should exactly match the number of rows in the input data.
+        """
+
 
             completion = client.chat.completions.create(
             model="gpt-4",  # Using a more stable model for categorization
