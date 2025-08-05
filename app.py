@@ -76,9 +76,9 @@ selected_tab= st.pills("Select a Financial Tool", options = tabs, selection_mode
 relevant_columns = ["Transaction Date", "Description", "Amount", "Category"]
 
 
-if st.session_state.demo_mode:
-    if st.session_state.spend_df is None:
-        st.session_state.spend_df = pd.read_csv("demo_data.csv")
+#if st.session_state.demo_mode:
+ #   if st.session_state.spend_df is None:
+  #      st.session_state.spend_df = pd.read_csv("demo_data.csv")
 
 else:
     new_or_returning = st.sidebar.subheader("New or Returning Users")
