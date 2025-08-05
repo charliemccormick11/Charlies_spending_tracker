@@ -138,7 +138,7 @@ def current_spending_page(relevant_columns, client):
             use_container_width=True,
             hide_index=True
         )
-
+        st.write("You can edit the Description and Category columns. Press below to save changes! 🔥")
 
         updated_spend_df = st.session_state.spend_df.copy()
 
