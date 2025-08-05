@@ -148,7 +148,7 @@ def open_ai_random_categorization(client):
             {readable_remaining_df_feed.to_csv(index=False)}
             
             Return the results as a Python JSON DICTIONARY. The key should be "Category". The values will be the categories in order
-            Ensure the number of values in the output EXACTLY matches the number of rows in the input. Categorize transactions as "remaining" if necessary. Otherwise my code won't work!
+            Ensure the number of values in the output EXACTLY matches the number of rows in {readable_remaining_df_feed.to_csv(index=False)}. Categorize transactions as "remaining" if necessary to make them align. Otherwise my code won't work!
 
             ONLY INCLUDE THE Python JSON DICTIONARY IN THE RESPONSE!
             
