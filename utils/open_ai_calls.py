@@ -33,6 +33,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     4.4 If there is one amount column, put it as 'debit'.
     5. Return ONLY the response as a Python JSON dictionary with the following keys: 'header', 'transaction_date', 'description', 'credit', 'debit', 'category'. No additional text, explanations, or strings. Only return the dictionary, nothing else. Make format identical for with or without headers!
     6. Remove anything else but the dictionary and don't display as a code block
+    7. Nothing can be null
     """
 
     # Additional check before sending the prompt
