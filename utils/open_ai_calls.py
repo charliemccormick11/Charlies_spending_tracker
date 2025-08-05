@@ -28,13 +28,11 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     - Transaction Date
     - Transaction Description (names of places purchased) which can NEVER be null
     - Amount
-    - Category (Food & Drink, Groceries, Entertainment, Shopping, etc.) only if it's a Chase credit card. Otherwise it will be null
-    3. Only include category index for Chase (the index will likely be 3)
+    - Category (Food & Drink, Groceries, Entertainment, Shopping, etc.) index is likely 3
     4. If there are two amount columns (Credit and Debit), provide their indices and include them as "credit" and "debit".
     4.4 If there is one amount column, put it as 'debit'.
-    5. If the credit card is "Chase", return the index of the Category column.
-    6. Return ONLY the response as a Python JSON dictionary with the following keys: 'header', 'transaction_date', 'transaction_name', 'credit', 'debit', 'category'. No additional text, explanations, or strings. Only return the dictionary, nothing else. Make format identical for with or without headers!
-    7. Remove anything else but the dictionary and don't display as a code block
+    5. Return ONLY the response as a Python JSON dictionary with the following keys: 'header', 'transaction_date', 'transaction_name', 'credit', 'debit', 'category'. No additional text, explanations, or strings. Only return the dictionary, nothing else. Make format identical for with or without headers!
+    6. Remove anything else but the dictionary and don't display as a code block
     """
 
     # Additional check before sending the prompt
@@ -43,7 +41,8 @@ def open_ai_headers(uploaded_credit, credit_card, client):
         prompt = prompt.replace("Please:", "Please that the category column index is provided as this is a Chase credit card!")
 
     else:
-        prompt = prompt.replace("Please:", "Please leave the category index as null")
+        prompt = prompt.replace("Category:", " ")
+        prompt = prompt.replace(", 'category'.", ".")
 
 
     completion = client.chat.completions.create(
