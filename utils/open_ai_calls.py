@@ -142,18 +142,16 @@ def open_ai_random_categorization(client):
         Output Format:
         - Your output must be a **JSON dictionary** with the key "Category". 
         - The value of "Category" should be a **list** of categories, one per transaction, in the same order as the transactions in the input data.
-        - The **number of categories** returned must match the **number of transactions** exactly.
+        - The **number of categories** returned must match the **number of transactions** exactly. If there are 100 transactions, there should be 100 values in the list!
         - Only the categories should be returned — no other text, explanations, or additional information.
 
         Here are the transactions to categorize:
         {readable_remaining_df_feed.to_csv(index=False, header=False)}
-
-        Going through each row, either put a category, or "Remaining" if you aren't sure
         """
 
 
             completion = client.chat.completions.create(
-            model="gpt-4",  # Using a more stable model for categorization
+            model="gpt-4-turbo",  # Using a more stable model for categorization
             messages=[{
                 "role": "user",
                 "content": prompt
