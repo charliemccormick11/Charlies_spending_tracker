@@ -113,7 +113,7 @@ def open_ai_random_categorization(client):
             st.dataframe(readable_remaining_df_feed)
     
             # Initialize progress bar and lists to collect all results
-            batch_size = 30
+            batch_size = 40
             all_names = []
             all_categories = []
             progress_bar = st.progress(0)
