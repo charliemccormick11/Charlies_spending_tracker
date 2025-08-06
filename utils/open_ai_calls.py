@@ -10,7 +10,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     dfs_credit = [pd.read_csv(file, header=None) for file in uploaded_credit]
     total_credit_df = pd.concat(dfs_credit, ignore_index=True)
 
-    credit_sample = total_credit_df.head(7)
+    credit_sample = total_credit_df.head(10)
     #Code that is calling the open AI API
     # Modify prompt to conditionally check the credit card type
     prompt = f"""
@@ -32,7 +32,8 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     5. Return ONLY the response as a Python JSON dictionary with the following keys: 'header', 'transaction_date', 'description', 'credit', 'debit', 'category'. No additional text, explanations, or strings.
     6. Remove anything else but the dictionary
     7. Nothing can be null
-    8. Ensure the "Description" index is assigned to a column with values that are in all caps
+    8. Ensure the "Description" index is assigned to a column with values that are in all caps. This will never inlude "Dining", "Merchandise", or other generic values
+
     """
 
     # Additional check before sending the prompt
