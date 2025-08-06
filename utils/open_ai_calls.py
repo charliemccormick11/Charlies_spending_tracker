@@ -32,7 +32,6 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     3.4 If there is one amount column, put it as 'debit'.
     4. Return ONLY the response as a Python JSON dictionary with the following keys: 'header', 'transaction_date', 'description', 'credit', 'debit', 'category'. No additional text, explanations, or strings.
     5. Remove anything else but the dictionary
-    6. If cannot locate description, list null
     """
 
     # Additional check before sending the prompt
@@ -58,7 +57,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     # Parse the JSON response
         st.session_state.column_info = json.loads(completion.choices[0].message.content)
         st.write(st.session_state.column_info)
-        if st.session_state.column_info['description'] == None:
+        if not isinstance(st.session_state.column_info['Description'], int):
             st.session_state.column_info['description'] = credit_sample.columns.tolist().index('Description')
         
 
