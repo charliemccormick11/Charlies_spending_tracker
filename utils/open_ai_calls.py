@@ -24,10 +24,10 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     1.2 If the first row contains data (e.g., values like "2023-01-01", "100"), set 'header' to False.
     2. Regardless of if there's a header, provide the column indices (starting from 0) for the following columns:
     - Transaction Date
-    - Description (example is DUNKIN) 
+    - Description (cannot be null) 
     - Amount
     - Category (Food & Drink, Groceries, Entertainment, Shopping, etc.) index is likely 3
-    3. If the column header is "Description", index as "description" in step 6
+    3. If the column header is "Description", this is the description
     4. If there are two amount columns (Credit and Debit), provide their indices and include them as "credit" and "debit".
     4.4 If there is one amount column, put it as 'debit'.
     5. Return ONLY the response as a Python JSON dictionary with the following keys: 'header', 'transaction_date', 'description', 'credit', 'debit', 'category'. No additional text, explanations, or strings.
@@ -50,7 +50,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     messages=[{
         "role": "user",
         "content": prompt,
-    }], temperature=0.1
+    }], temperature=0
     )
 
     # Parse OpenAI response into a dictionary
