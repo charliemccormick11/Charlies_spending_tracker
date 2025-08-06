@@ -27,7 +27,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     - Description (example is DUNKIN) 
     - Amount
     - Category (Food & Drink, Groceries, Entertainment, Shopping, etc.) index is likely 3
-    3. If the column header is "Category", do not index it as "description"
+    3. If the column header is "Description", index as "description" in step 6
     4. If there are two amount columns (Credit and Debit), provide their indices and include them as "credit" and "debit".
     4.4 If there is one amount column, put it as 'debit'.
     5. Return ONLY the response as a Python JSON dictionary with the following keys: 'header', 'transaction_date', 'description', 'credit', 'debit', 'category'. No additional text, explanations, or strings.
