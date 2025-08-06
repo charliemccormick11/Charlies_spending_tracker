@@ -10,7 +10,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     dfs_credit = [pd.read_csv(file, header=None) for file in uploaded_credit]
     total_credit_df = pd.concat(dfs_credit, ignore_index=True)
 
-    credit_sample = total_credit_df.head(10)
+    credit_sample = total_credit_df.head(12)
     #Code that is calling the open AI API
     # Modify prompt to conditionally check the credit card type
     prompt = f"""
@@ -24,7 +24,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     1.2 If the first row contains data (e.g., values like "2023-01-01", "100"), set 'header' to False.
     2. Regardless of if there's a header, provide the column indices (starting from 0) for the following columns:
     - Transaction Date
-    - Description (this is the names of merchants, there MUST BE AT LEAST ONE VALUE IN ALL CAPS, ) 
+    - Description (this is the names of merchants, example is DUNKIN) 
     - Amount
     - Category (Food & Drink, Groceries, Entertainment, Shopping, etc.) index is likely 3
     4. If there are two amount columns (Credit and Debit), provide their indices and include them as "credit" and "debit".
@@ -41,7 +41,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
         prompt = prompt.replace("Please:", "Please that the category column index is provided as this is a Chase credit card!")
 
     else:
-        prompt = prompt.replace("- Category (Food & Drink, Groceries, Entertainment, Shopping, etc.) index is likely 3", " ")
+        prompt = prompt.replace("- Category (Food & Drink, Groceries, Entertainment, Shopping, etc.) index is likely 3", "ignore any columns that include Dining, Merchandise, or other generic categories")
         prompt = prompt.replace(", 'category'.", ".")
 
 
