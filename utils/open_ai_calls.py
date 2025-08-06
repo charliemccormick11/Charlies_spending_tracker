@@ -28,12 +28,11 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     - Description (cannot be null) 
     - Amount
     - Category (index is likely 3)
-    3. If the column header is "Description", provide the index number for it 
-    4. If there are two amount columns (Credit and Debit), provide their indices and include them as "credit" and "debit".
-    4.4 If there is one amount column, put it as 'debit'.
-    5. Return ONLY the response as a Python JSON dictionary with the following keys: 'header', 'transaction_date', 'description', 'credit', 'debit', 'category'. No additional text, explanations, or strings.
-    6. Remove anything else but the dictionary
-    7. Nothing can be null
+    3. If there are two amount columns (Credit and Debit), provide their indices and include them as "credit" and "debit".
+    3.4 If there is one amount column, put it as 'debit'.
+    4. Return ONLY the response as a Python JSON dictionary with the following keys: 'header', 'transaction_date', 'description', 'credit', 'debit', 'category'. No additional text, explanations, or strings.
+    5. Remove anything else but the dictionary
+    6. Nothing can be null
     """
 
     # Additional check before sending the prompt
@@ -58,8 +57,9 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     try:
     # Parse the JSON response
         st.session_state.column_info = json.loads(completion.choices[0].message.content)
+        st.write(st.session_state.column_info)
         if st.session_state.column_info['Description'] == None:
-            st.session_state.column_info['Description']= 4
+            st.session_state.column_info['Description'] = 4
         
 
         
