@@ -6,98 +6,100 @@ import io
 
 def open_ai_headers(uploaded_credit, credit_card, client):
 
-    st.sidebar.success(f"{len(uploaded_credit)} credit file(s) uploaded.")
-    dfs_credit = [pd.read_csv(file, header=None) for file in uploaded_credit]
-    total_credit_df = pd.concat(dfs_credit, ignore_index=True)
-
-    credit_sample = total_credit_df.head(5)
-    #Code that is calling the open AI API
-    # Modify prompt to conditionally check the credit card type
-    prompt = f"""
-    I have uploaded the following CSV data:
-
-    {credit_sample}
-
-    Please:
-    1. Check if there is a header row in the data.
-    1.1 If the first row contains column names (e.g., "Transaction Date", "Amount"), set 'header' to True.
-    1.2 If the first row contains data (e.g., values like "2023-01-01", "100"), set 'header' to False.
-    2. Regardless of if there's a header, provide the column indices (starting from 0) for the following columns:
-    - Transaction Date
-    - Description (in all capital letters, names of merchants) 
-    - Amount
-    - Category (Food & Drink, Groceries, Entertainment, Shopping, etc.) index is likely 3
-    4. If there are two amount columns (Credit and Debit), provide their indices and include them as "credit" and "debit".
-    4.4 If there is one amount column, put it as 'debit'.
-    5. Return ONLY the response as a Python JSON dictionary with the following keys: 'header', 'transaction_date', 'description', 'credit', 'debit', 'category'. No additional text, explanations, or strings.
-    6. Remove anything else but the dictionary
-    7. Nothing can be null
-    """
-
-    # Additional check before sending the prompt
-    if credit_card == "Chase":
-        # If it's Chase, add additional logic to handle category column index if necessary
-        prompt = prompt.replace("Please:", "Please that the category column index is provided as this is a Chase credit card!")
-
-    else:
-        prompt = prompt.replace("- Category (Food & Drink, Groceries, Entertainment, Shopping, etc.) index is likely 3", " ")
-        prompt = prompt.replace(", 'category'.", ".")
-
-
-    completion = client.chat.completions.create(
-    model="gpt-4-turbo",
-    messages=[{
-        "role": "user",
-        "content": prompt,
-    }], temperature=0
-    )
-
-    # Parse OpenAI response into a dictionary
     try:
-    # Parse the JSON response
-        st.session_state.column_info = json.loads(completion.choices[0].message.content)
-        st.write(st.session_state.column_info)
-
-        
-    except Exception as e:
-        st.error(f"Error parsing OpenAI response: {str(e)}")
-        st.session_state.column_info = {}
-
-    # Process credit data
-    if not st.session_state.column_info:
-        st.error("Error: No valid data found in the response")
-        st.stop()
-    else:
-        if st.session_state.column_info.get('header') == True:
-            # If the header is present, assign the first row as column names and remove it from data
-            total_credit_df.columns = total_credit_df.iloc[0]
-            total_credit_df = total_credit_df.drop(0, axis=0).reset_index(drop=True)
+        st.sidebar.success(f"{len(uploaded_credit)} credit file(s) uploaded.")
+        dfs_credit = [pd.read_csv(file, header=None) for file in uploaded_credit]
+        total_credit_df = pd.concat(dfs_credit, ignore_index=True)
+    
+        credit_sample = total_credit_df.head(5)
+        #Code that is calling the open AI API
+        # Modify prompt to conditionally check the credit card type
+        prompt = f"""
+        I have uploaded the following CSV data:
+    
+        {credit_sample}
+    
+        Please:
+        1. Check if there is a header row in the data.
+        1.1 If the first row contains column names (e.g., "Transaction Date", "Amount"), set 'header' to True.
+        1.2 If the first row contains data (e.g., values like "2023-01-01", "100"), set 'header' to False.
+        2. Regardless of if there's a header, provide the column indices (starting from 0) for the following columns:
+        - Transaction Date
+        - Description (in all capital letters, names of merchants) 
+        - Amount
+        - Category (Food & Drink, Groceries, Entertainment, Shopping, etc.) index is likely 3
+        4. If there are two amount columns (Credit and Debit), provide their indices and include them as "credit" and "debit".
+        4.4 If there is one amount column, put it as 'debit'.
+        5. Return ONLY the response as a Python JSON dictionary with the following keys: 'header', 'transaction_date', 'description', 'credit', 'debit', 'category'. No additional text, explanations, or strings.
+        6. Remove anything else but the dictionary
+        7. Nothing can be null
+        """
+    
+        # Additional check before sending the prompt
+        if credit_card == "Chase":
+            # If it's Chase, add additional logic to handle category column index if necessary
+            prompt = prompt.replace("Please:", "Please that the category column index is provided as this is a Chase credit card!")
+    
+        else:
+            prompt = prompt.replace("- Category (Food & Drink, Groceries, Entertainment, Shopping, etc.) index is likely 3", " ")
+            prompt = prompt.replace(", 'category'.", ".")
+    
+    
+        completion = client.chat.completions.create(
+        model="gpt-4-turbo",
+        messages=[{
+            "role": "user",
+            "content": prompt,
+        }], temperature=0
+        )
+    
+        # Parse OpenAI response into a dictionary
+        try:
+        # Parse the JSON response
+            st.session_state.column_info = json.loads(completion.choices[0].message.content)
+    
             
-            # Assign columns based on OpenAI's response
-            total_credit_df["Transaction Date"] = total_credit_df.iloc[:, st.session_state.column_info['transaction_date']]
-            total_credit_df["Description"] = total_credit_df.iloc[:, st.session_state.column_info['description']]
-            if st.session_state.credit_card == "Chase" and (st.session_state.column_info['category'] is not None):
-                total_credit_df["Category"] = total_credit_df.iloc[:, st.session_state.column_info['category']]
-            total_credit_df["Amount"] = total_credit_df.iloc[:, st.session_state.column_info['debit']]
-            
-        # Handle missing Category column
-            if credit_card == "Other":
-                total_credit_df = total_credit_df[["Transaction Date", "Description", "Amount"]]
-            else:
-                total_credit_df = total_credit_df[["Transaction Date", "Description", "Category", "Amount"]]
-        elif st.session_state.column_info['header'] == False:
-            # For non-Chase statements without headers, assign columns based on indices
-            total_credit_df["Transaction Date"] = total_credit_df.iloc[:, st.session_state.column_info['transaction_date']]
-            total_credit_df["Description"] = total_credit_df.iloc[:, st.session_state.column_info['description']]
-            total_credit_df["Amount"] = total_credit_df.iloc[:, st.session_state.column_info['debit']]
-            # Only keep the three essential columns since this is a non-Chase statement
-            total_credit_df = total_credit_df[["Transaction Date", "Description", "Amount"]]
-            
-        else:   
-            st.error("Error: No header found in the data")
+        except Exception as e:
+            st.error(f"Please ensure you are uploading a CSV file listing the Transaction Date, Description, and Amount")
+            st.session_state.column_info = {}
+    
+        # Process credit data
+        if not st.session_state.column_info:
+            st.error("Error: No valid data found in the response")
             st.stop()
-        
-        return total_credit_df
+        else:
+            if st.session_state.column_info.get('header') == True:
+                # If the header is present, assign the first row as column names and remove it from data
+                total_credit_df.columns = total_credit_df.iloc[0]
+                total_credit_df = total_credit_df.drop(0, axis=0).reset_index(drop=True)
+                
+                # Assign columns based on OpenAI's response
+                total_credit_df["Transaction Date"] = total_credit_df.iloc[:, st.session_state.column_info['transaction_date']]
+                total_credit_df["Description"] = total_credit_df.iloc[:, st.session_state.column_info['description']]
+                if st.session_state.credit_card == "Chase" and (st.session_state.column_info['category'] is not None):
+                    total_credit_df["Category"] = total_credit_df.iloc[:, st.session_state.column_info['category']]
+                total_credit_df["Amount"] = total_credit_df.iloc[:, st.session_state.column_info['debit']]
+                
+            # Handle missing Category column
+                if credit_card == "Other":
+                    total_credit_df = total_credit_df[["Transaction Date", "Description", "Amount"]]
+                else:
+                    total_credit_df = total_credit_df[["Transaction Date", "Description", "Category", "Amount"]]
+            elif st.session_state.column_info['header'] == False:
+                # For non-Chase statements without headers, assign columns based on indices
+                total_credit_df["Transaction Date"] = total_credit_df.iloc[:, st.session_state.column_info['transaction_date']]
+                total_credit_df["Description"] = total_credit_df.iloc[:, st.session_state.column_info['description']]
+                total_credit_df["Amount"] = total_credit_df.iloc[:, st.session_state.column_info['debit']]
+                # Only keep the three essential columns since this is a non-Chase statement
+                total_credit_df = total_credit_df[["Transaction Date", "Description", "Amount"]]
+                
+            else:   
+                st.error("Error: No header found in the data")
+                st.stop()
+            
+            return total_credit_df
+    except:
+        st.error("Please ensure you select "Other" on the sidebar for credit card if you don't use Chase!")
     
 def open_ai_random_categorization(client):
 
