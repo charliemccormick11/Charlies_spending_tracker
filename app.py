@@ -137,7 +137,6 @@ if uploaded_credit or uploaded_previous:
 
                 except:
                     st.error("Please ensure you select 'Other' on the sidebar for credit card if you don't use Chase!")
-                    st.stop()
                     time.sleep(5)
                     st.rerun()
 
