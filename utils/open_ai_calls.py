@@ -99,7 +99,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
             
             return total_credit_df
     except:
-        st.error("Please ensure you select "Other" on the sidebar for credit card if you don't use Chase!")
+        st.error("Please ensure you select 'Other' on the sidebar for credit card if you don't use Chase!")
     
 def open_ai_random_categorization(client):
 
