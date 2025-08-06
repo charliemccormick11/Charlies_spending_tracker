@@ -132,7 +132,12 @@ if uploaded_credit or uploaded_previous:
                     st.session_state.previous_categories = st.session_state.total_df_downloaded[st.session_state.total_df_downloaded["Financial Type"] == "Future Category"]
                     st.session_state.previous_categories = st.session_state.previous_categories.reset_index()
             if uploaded_credit:
-                total_credit_df= oaic.open_ai_headers(uploaded_credit, st.session_state.credit_card, st.session_state.client)
+                try:
+                    total_credit_df= oaic.open_ai_headers(uploaded_credit, st.session_state.credit_card, st.session_state.client)
+
+                except:
+                    st.error("Please ensure you select 'Other' on the sidebar for credit card if you don't use Chase!")
+                    st.stop()
 
                 # Process the credit transactions
                 st.session_state.processed_credit_df=dp.process_credit_transactions(total_credit_df)
