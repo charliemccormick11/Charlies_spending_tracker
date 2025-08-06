@@ -31,10 +31,9 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     3. If the column header is "Description", provide the index number for it 
     4. If there are two amount columns (Credit and Debit), provide their indices and include them as "credit" and "debit".
     4.4 If there is one amount column, put it as 'debit'.
-    5. Default to '2' if 'description' column can't be found
-    6. Return ONLY the response as a Python JSON dictionary with the following keys: 'header', 'transaction_date', 'description', 'credit', 'debit', 'category'. No additional text, explanations, or strings.
-    7. Remove anything else but the dictionary
-    8. Nothing can be null
+    5. Return ONLY the response as a Python JSON dictionary with the following keys: 'header', 'transaction_date', 'description', 'credit', 'debit', 'category'. No additional text, explanations, or strings.
+    6. Remove anything else but the dictionary
+    7. Nothing can be null
     """
 
     # Additional check before sending the prompt
