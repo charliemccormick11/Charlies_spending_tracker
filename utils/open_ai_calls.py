@@ -10,23 +10,24 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     dfs_credit = [pd.read_csv(file, header=None) for file in uploaded_credit]
     total_credit_df = pd.concat(dfs_credit, ignore_index=True)
 
-    credit_sample = total_credit_df.head(3)
+    credit_sample = total_credit_df.head(0)
+    st.write(credit_sample)
     #Code that is calling the open AI API
     # Modify prompt to conditionally check the credit card type
     prompt = f"""
-    I have uploaded the following CSV data:
+    I have uploaded the following transaction header, or, first row:
 
     {credit_sample}
 
     Please:
-    1. Check if there is a header row in the data.
+    1. Check if this is a header.
     1.1 If the first row contains column names (e.g., "Transaction Date", "Amount"), set 'header' to True.
     1.2 If the first row contains data (e.g., values like "2023-01-01", "100"), set 'header' to False.
     2. Regardless of if there's a header, provide the column indices (starting from 0) for the following columns:
     - Transaction Date
     - Description (cannot be null) 
     - Amount
-    - Category (Food & Drink, Groceries, Entertainment, Shopping, etc.) index is likely 3
+    - Category (index is likely 3)
     3. If the column header is "Description", this is the description
     4. If there are two amount columns (Credit and Debit), provide their indices and include them as "credit" and "debit".
     4.4 If there is one amount column, put it as 'debit'.
