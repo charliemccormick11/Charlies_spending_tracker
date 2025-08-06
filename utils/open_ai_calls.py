@@ -59,7 +59,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     # Parse the JSON response
         st.session_state.column_info = json.loads(completion.choices[0].message.content)
         if st.session_state.column_info['Description'] == None:
-            st.session_state.column_info['Description']= credit_sample.columns.tolist().index('Description')
+            st.session_state.column_info['Description']= 4
         
 
         
