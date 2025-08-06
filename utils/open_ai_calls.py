@@ -57,13 +57,14 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     try:
     # Parse the JSON response
         st.session_state.column_info = json.loads(completion.choices[0].message.content)
-        st.write(st.session_state.column_info)
+        
 
         
     except Exception as e:
         st.error(f"Please ensure you are uploading a CSV file listing the Transaction Date, Description, and Amount")
         st.session_state.column_info = {}
 
+    st.write(st.session_state.column_info)
     # Process credit data
     if not st.session_state.column_info:
         st.error("Error: No valid data found in the response")
