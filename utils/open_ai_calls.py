@@ -50,7 +50,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     messages=[{
         "role": "user",
         "content": prompt,
-    }], temperature=0
+    }], temperature=0.1
     )
 
     # Parse OpenAI response into a dictionary
