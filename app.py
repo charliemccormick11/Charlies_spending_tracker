@@ -146,7 +146,7 @@ if uploaded_credit or uploaded_previous:
                 ccs.combine_all_spending(st.session_state.credit_card)
 
 
-            csvd.download_as_csv()
+                csvd.download_as_csv()
 
         
 
