@@ -133,7 +133,7 @@ def open_ai_random_categorization(client):
     - Groceries 🛒
     - Golf ⛳
     - Gambling 🎰
-    - Misc Entertainment 🚀
+    - Misc Entertainment🎟️
     - Fashion 👚
     - Misc Shopping 🚀🛍️
     - Rideshare 🚘💼
@@ -188,15 +188,11 @@ def open_ai_random_categorization(client):
             categorized_df = pd.DataFrame({
                 "Category": all_categories
             })
-
-            st.dataframe(categorized_df)
             # Join back with original DataFrame if needed
             final_df = readable_remaining_df_feed.copy()
             final_df["Category"] = categorized_df["Category"].values
-            st.dataframe(final_df)
     
             st.session_state.spend_df_newload.loc[st.session_state.spend_df_newload["Category"] == "Remaining", "Category"] = final_df["Category"]
-            st.dataframe(st.session_state.spend_df_newload)
             st.success("Categorization successful! 🎉")
 
     
