@@ -25,7 +25,7 @@ def combine_all_spending(credit_card):
                     categorized_data=cg.categorize_transactions_third_pass(remaining_credit_categorized,categorized_data, remaining_credit_df)    
 
         else:
-            categorized_data = cg.categorize_first_pass(st.session_state.processed_credit_df)
+            categorized_data = cg.categorize_first_pass(data_to_categorize)
 
     
 
