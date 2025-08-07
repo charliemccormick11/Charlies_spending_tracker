@@ -57,7 +57,7 @@ def combine_all_spending(credit_card):
         subs_df = categorized_data.get("subs")
         fees_df = categorized_data.get("fees")
         
-        st.session_state.remaining_credit_df = categorized_data.get("remaining")
+        st.session_state.remaining_credit_df = remaining_credit_categorized.get("remaining")
 
 
         categories = {
