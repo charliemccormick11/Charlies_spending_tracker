@@ -94,6 +94,8 @@ def combine_all_spending(credit_card):
     
         if 'previous_categories' in st.session_state:
             st.session_state.spend_df_newload = pd.concat([st.session_state.spend_df_newload, categorized_previous], ignore_index=True)
+
+        st.dataframe(st.session_state.spend_df_newload)
     
         st.session_state.spend_df_newload["Description"]=st.session_state.spend_df_newload["Clean Description"]
         st.session_state.spend_df_newload["Description"] = st.session_state.spend_df_newload["Description"].astype(str).apply(title_names)
