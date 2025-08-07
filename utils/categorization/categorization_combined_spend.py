@@ -17,14 +17,12 @@ def combine_all_spending(credit_card):
 
         if credit_card == "Chase":
             categorized_data = cg.categorize_first_pass(data_to_categorize)
-            st.write(categorized_data)
             remaining_credit_df = categorized_data.get("remaining")
             st.write(remaining_credit_df)
             if not remaining_credit_df.empty:
                 remaining_credit_categorized = cg.categorize_transactions_second_pass(remaining_credit_df)
                 st.write(remaining_credit_categorized)
                 
-            
                 if remaining_credit_categorized:
                     categorized_data=cg.categorize_transactions_third_pass(remaining_credit_categorized,categorized_data, remaining_credit_df)    
 
