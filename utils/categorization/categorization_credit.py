@@ -21,11 +21,11 @@ def categorize_previous_transactions(processed_nonchase_df):
         for _, row in st.session_state.previous_categories.iterrows():
             description = row["Description"]
             category = row["Category"]
-            previous_category_lookup[description.lower()] = category
+            previous_category_lookup[description] = category
     
     # Check each transaction against previous categories
     for idx, row in processed_nonchase_df.iterrows():
-        transaction_description = str(row["Description"]).lower()
+        transaction_description = row["Description"]
         
         # Check if this transaction description exists in previous categories
         if transaction_description in previous_category_lookup:
