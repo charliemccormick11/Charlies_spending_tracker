@@ -11,7 +11,6 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     total_credit_df = pd.concat(dfs_credit, ignore_index=True)
 
     credit_sample = total_credit_df.head(1)
-    st.write(credit_sample)
     #Code that is calling the open AI API
     # Modify prompt to conditionally check the credit card type
     prompt = f"""
@@ -65,8 +64,6 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     except Exception as e:
         st.error(f"Please ensure you are uploading a CSV file listing the Transaction Date, Description, and Amount")
         st.session_state.column_info = {}
-
-    st.write(st.session_state.column_info)
     # Process credit data
     if not st.session_state.column_info:
         st.error("Error: No valid data found in the response")
