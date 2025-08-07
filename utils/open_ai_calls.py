@@ -135,13 +135,13 @@ def open_ai_random_categorization(client):
     - Gambling 🎰
     - Misc Entertainment 🚀
     - Fashion 👚
-    - Misc Shopping 🚀
+    - Misc Shopping 🚀🛍️
     - Rideshare 🚘💼
-    - Misc Travel 🚀
+    - Misc Travel ✈️
     - Gas ⛽
     - Public Transportation 🚍
     - Insurance 🛡️
-    - Misc Car 🚀
+    - Misc Car 🚗
     - Health 💪
     - Gifts/Donations 🎁🙏
     - Bills 📜
