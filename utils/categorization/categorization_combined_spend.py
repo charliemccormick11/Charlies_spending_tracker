@@ -24,7 +24,11 @@ def combine_all_spending(credit_card):
                 st.write(remaining_credit_categorized)
                 
                 if remaining_credit_categorized:
-                    categorized_data=cg.categorize_transactions_third_pass(remaining_credit_categorized,categorized_data, remaining_credit_df)    
+                    merged_dict = {}
+
+for key in dict1:
+    if key in dict2:
+        merged_dict[key] = pd.concat([dict1[key], dict2[key]], ignore_index=True)   
 
         else:
             categorized_data = cg.categorize_first_pass(data_to_categorize)
