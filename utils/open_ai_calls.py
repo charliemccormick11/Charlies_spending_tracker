@@ -208,8 +208,8 @@ def open_ai_budgetGPT(alcohol_low_value, takeout_low_value, grocery_low_value, s
         - Alcohol 🍺: {alcohol_low_value}
         - Takeout 🍔: {takeout_low_value}
         - Groceries 🛒: {grocery_low_value}
-        - Shopping 👚🚀: {shopping_total_low_value}
-        - Entertainment 🎰🚀: {entertainment_total_low_value}
+        - Shopping 👚🛍️: {shopping_total_low_value}
+        - Entertainment 🎰🎟️: {entertainment_total_low_value}
         - Health 💪: {health_low_value}
         - Total Spending (No Bills) 💰: {no_bills_spending_low_value}
 
