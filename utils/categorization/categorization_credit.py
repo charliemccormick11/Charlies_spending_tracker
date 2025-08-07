@@ -243,29 +243,3 @@ def categorize_transactions_second_pass(processed_credit_df):
 
         return categorized_data
     
-def categorize_transactions_third_pass(remaining_credit_categorized, categorized_data, remaining_credit_df):
-    if remaining_credit_categorized:
-        # Convert the dictionary of DataFrames to a list of DataFrames
-        dfs_to_append = []
-        for category, df in remaining_credit_categorized.items():
-            if not df.empty:
-                # Create a copy of the DataFrame and set the Category to the dictionary key
-                df_copy = df.copy()
-                df_copy["Category"] = category
-                dfs_to_append.append(df_copy)
-                
-                # Append to the existing category in categorized_data
-                categorized_data[category] = pd.concat([categorized_data[category], df], ignore_index=True)
-        
-        if dfs_to_append:
-
-            # Update the remaining transactions in categorized_data
-            # Get all transactions that were categorized
-            categorized_transactions = pd.concat(dfs_to_append, ignore_index=True)
-            # Remove these transactions from the remaining category
-            remaining_mask = ~remaining_credit_df.index.isin(categorized_transactions.index)
-            categorized_data["remaining"] = remaining_credit_df[remaining_mask]
-
-
-        return categorized_data
-
