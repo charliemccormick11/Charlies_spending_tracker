@@ -10,7 +10,7 @@ import os
 
 
 def categorize_previous_transactions(processed_nonchase_df):
-    
+
     # Add Category column if it doesn't exist
     if "Category" not in processed_nonchase_df.columns:
         processed_nonchase_df["Category"] = None
@@ -24,6 +24,7 @@ def categorize_previous_transactions(processed_nonchase_df):
             previous_category_lookup[description] = category
 
         st.write(st.session_state.previous_categories)
+        st.write(previous_category_lookup.keys())
     
     # Check each transaction against previous categories
     for idx, row in processed_nonchase_df.iterrows():
