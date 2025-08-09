@@ -35,7 +35,16 @@ def current_spending_page(relevant_columns, client):
     filtered_data_spend_ym["Amount"] = (pd.to_numeric(filtered_data_spend_ym["Amount"], errors="coerce"))
     spending_df = gp.spending_table(filtered_data_spend_ym, st.session_state.spend_df, selected_month, selected_year)
     options = ["Overall Spending 💸"] + [cat for cat in spending_df['Category'].unique() if cat != "Reimbursements 💸🔙"]
-    st.session_state.selected_value = st.selectbox("Select a category:", options)
+    
+    # Initialize selected_value in session state if not exists
+    if 'selected_value' not in st.session_state:
+        st.session_state.selected_value = "Overall Spending 💸"
+    
+    # Check if current selected value is still valid in the new filtered data
+    if st.session_state.selected_value not in options:
+        st.session_state.selected_value = "Overall Spending 💸"
+    
+    st.session_state.selected_value = st.selectbox("Select a category:", options, index=options.index(st.session_state.selected_value))
 
 
     # Create a copy of the DataFrame for styling
