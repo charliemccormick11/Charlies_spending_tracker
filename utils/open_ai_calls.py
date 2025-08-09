@@ -113,16 +113,17 @@ def open_ai_random_categorization(client):
             if len(readable_remaining_df_feed) != 0:
                 st.write(f"Total transactions being categorized by ChatGPT🚀: {len(readable_remaining_df_feed)}")
     
-                # Initialize progress bar and lists to collect all results
-                batch_size = 40
-                all_names = []
-                all_categories = []
+            # Initialize progress bar and lists to collect all results
+            batch_size = 40
+            all_names = []
+            all_categories = []
+            if len(readable_remaining_df_feed) != 0:
                 progress_bar = st.progress(0)
-                total_batches = (len(readable_remaining_df_feed) - 1) // batch_size + 1
-        
-                # Loop over batches
-                for i in range(0, len(readable_remaining_df_feed), batch_size):
-                    batch = readable_remaining_df_feed.iloc[i:i+batch_size]
+            total_batches = (len(readable_remaining_df_feed) - 1) // batch_size + 1
+    
+            # Loop over batches
+            for i in range(0, len(readable_remaining_df_feed), batch_size):
+                batch = readable_remaining_df_feed.iloc[i:i+batch_size]
         
                 prompt = f"""
     You are a categorization assistant for personal finance transactions.
