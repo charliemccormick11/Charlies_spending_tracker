@@ -65,6 +65,7 @@ def combine_all_spending(credit_card):
 
             except:
                 st.session_state.remaining_credit_df = pd.DataFrame()
+                st.session_state.remaining_credit_df.columns = ['Transaction Date', 'Description', 'Amount']
 
         else:
             st.session_state.remaining_credit_df = categorized_data.get("remaining")
