@@ -235,6 +235,7 @@ def spending_table(combined_data, full_combined_data, selected_month, selected_y
             )
             full_data_categories["Total_Amount"] = full_data_categories["Total_Amount"].apply(lambda x: f"${x:,.2f}")
             full_data_categories = full_data_categories.rename(columns={"Total_Amount": "Total Amount"})
+            full_data_categories.index = full_data_categories.index + 1  # Update index to start from 1
 
             return full_data_categories
 
@@ -298,6 +299,7 @@ def spending_table(combined_data, full_combined_data, selected_month, selected_y
 
             final_categories = final_categories.reset_index(drop=True)  # Reset index to default starting from 0
               # Update index to start from 1
+            final_categories.index = final_categories.index + 1  # Update index to start from 1
             
             # Display with color formatting
             #styled_data = final_categories.style.applymap(
