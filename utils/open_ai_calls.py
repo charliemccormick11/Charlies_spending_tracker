@@ -57,7 +57,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
         st.session_state.column_info = json.loads(completion.choices[0].message.content)
         if not isinstance(st.session_state.column_info['description'], int):
             st.session_state.column_info['description'] = 3
-        
+        st.write(st.session_state.column_info)
 
         
     except Exception as e:
