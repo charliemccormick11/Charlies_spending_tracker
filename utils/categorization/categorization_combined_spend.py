@@ -26,9 +26,11 @@ def combine_all_spending(credit_card):
                 if remaining_credit_categorized:
                     merged_dict = {}
 
-for key in dict1:
-    if key in dict2:
-        merged_dict[key] = pd.concat([dict1[key], dict2[key]], ignore_index=True)   
+                    for key in dict1:
+                        if key in dict2:
+                            merged_dict[key] = pd.concat([dict1[key], dict2[key]], ignore_index=True)   
+
+                    categorized_data = merged_dict
 
         else:
             categorized_data = cg.categorize_first_pass(data_to_categorize)
@@ -58,8 +60,12 @@ for key in dict1:
         bills_df = categorized_data.get("bills")
         subs_df = categorized_data.get("subs")
         fees_df = categorized_data.get("fees")
-        
-        st.session_state.remaining_credit_df = remaining_credit_categorized.get("remaining")
+
+        if credit_card == "Chase":
+            st.session_state.remaining_credit_df = remaining_credit_categorized.get("remaining")
+
+        else:
+            st.session_state.remaining_credit_df = categorized_data.get("remaining")
 
 
         categories = {
