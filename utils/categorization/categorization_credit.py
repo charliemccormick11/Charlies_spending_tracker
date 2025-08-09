@@ -20,9 +20,6 @@ def categorize_previous_transactions(processed_nonchase_df):
             description = row["Description"]
             category = row["Category"]
             previous_category_lookup[description] = category
-
-        st.write(st.session_state.previous_categories)
-        st.write(previous_category_lookup.keys())
     
     # Check each transaction against previous categories
     for idx, row in processed_nonchase_df.iterrows():
@@ -35,9 +32,7 @@ def categorize_previous_transactions(processed_nonchase_df):
     
 
     st.session_state.categorized_transactions_returning = processed_nonchase_df[processed_nonchase_df["Category"].notna()]
-    st.dataframe(st.session_state.categorized_transactions_returning)
     st.session_state.remaining_transactions_returning = processed_nonchase_df[processed_nonchase_df["Category"].isna()]
-    st.dataframe(st.session_state.remaining_transactions_returning)
 
 
     return st.session_state.categorized_transactions_returning, st.session_state.remaining_transactions_returning
