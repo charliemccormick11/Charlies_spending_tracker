@@ -59,7 +59,11 @@ def combine_all_spending(credit_card):
         fees_df = categorized_data.get("fees")
 
         if credit_card == "Chase":
-            st.session_state.remaining_credit_df = remaining_credit_categorized.get("remaining")
+            if remaining_credit_categorized:
+                st.session_state.remaining_credit_df = remaining_credit_categorized.get("remaining")
+
+            else:
+                st.session_state.remaining_credit_df = pd.DataFrame()
 
         else:
             st.session_state.remaining_credit_df = categorized_data.get("remaining")
