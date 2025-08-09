@@ -64,36 +64,39 @@ def combine_all_spending(credit_card):
                 st.session_state.remaining_credit_df = remaining_credit_categorized.get("remaining")
 
             except:
-                st.session_state.remaining_credit_df = pd.DataFrame()
+                st.session_state.remaining_credit_df = None
 
         else:
             st.session_state.remaining_credit_df = categorized_data.get("remaining")
 
 
         categories = {
-            "Alcohol 🍺": bar_df,
-            "Dining 🍴": restaurant_df,
-            "Takeout 🍔": takeout_df,
-            "Groceries 🛒": grocery_df,
-            "Misc Food 🚀🍔🍴": misc_food_df,
-            "Golf ⛳": golf_df,
-            "Gambling 🎰": gambling_df,
-            "Misc Entertainment🎟️": entertainment_df,
-            "Fashion 👚": fashion_df,
-            "Misc Shopping 🚀🛍️": shopping_df,
-            "Rideshare 🚘💼": rideshare_df,
-            "Misc Travel✈️": travel_df,
-            "Gas ⛽": gas_df,
-            "Public Transporation 🚍": transport_df,
-            "Insurance 🛡️": insurance_df,
-            "Misc Car🚗": car_df,
-            "Health 💪": health_df,
-            "Gifts/Donations 🎁🙏": gifts_df,
-            "Bills 📜": bills_df,
-            "Subscriptions 💳🎬": subs_df,
-            "Fees & Adjustments ⚖️": fees_df,
-            "Remaining": st.session_state.remaining_credit_df
+        "Alcohol 🍺": bar_df,
+        "Dining 🍴": restaurant_df,
+        "Takeout 🍔": takeout_df,
+        "Groceries 🛒": grocery_df,
+        "Misc Food 🚀🍔🍴": misc_food_df,
+        "Golf ⛳": golf_df,
+        "Gambling 🎰": gambling_df,
+        "Misc Entertainment🎟️": entertainment_df,
+        "Fashion 👚": fashion_df,
+        "Misc Shopping 🚀🛍️": shopping_df,
+        "Rideshare 🚘💼": rideshare_df,
+        "Misc Travel✈️": travel_df,
+        "Gas ⛽": gas_df,
+        "Public Transporation 🚍": transport_df,
+        "Insurance 🛡️": insurance_df,
+        "Misc Car🚗": car_df,
+        "Health 💪": health_df,
+        "Gifts/Donations 🎁🙏": gifts_df,
+        "Bills 📜": bills_df,
+        "Subscriptions 💳🎬": subs_df,
+        "Fees & Adjustments ⚖️": fees_df
         }
+
+        # Conditionally add "Remaining" if the DataFrame is not None
+        if st.session_state.remaining_credit_df is not None:
+            categories["Remaining"] = st.session_state.remaining_credit_df
         
         for category, df in categories.items():
             df["Category"] = category
