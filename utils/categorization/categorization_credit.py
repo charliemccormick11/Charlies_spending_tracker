@@ -11,9 +11,7 @@ import os
 
 def categorize_previous_transactions(processed_nonchase_df):
 
-    # Add Category column if it doesn't exist
-    if "Category" not in processed_nonchase_df.columns:
-        processed_nonchase_df["Category"] = None
+    processed_nonchase_df["Category"] = None
     
     # Create a lookup dictionary from previous categories
     previous_category_lookup = {}
