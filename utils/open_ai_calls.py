@@ -50,7 +50,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
         "content": prompt,
     }], temperature=0
     )
-
+    st.write("call happened)"
     # Parse OpenAI response into a dictionary
     try:
     # Parse the JSON response
