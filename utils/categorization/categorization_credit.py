@@ -10,7 +10,7 @@ import os
 
 
 def categorize_previous_transactions(processed_nonchase_df):
-
+#Need to figure this out, get rid of the remaining line and change it to where if the categorys in the column for chase are different, then to 
     processed_nonchase_df["Category"] = "Remaining"
     
     # Create a lookup dictionary from previous categories
