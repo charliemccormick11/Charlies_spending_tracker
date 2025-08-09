@@ -33,7 +33,7 @@ def categorize_previous_transactions(processed_nonchase_df):
 
     st.session_state.categorized_transactions_returning = processed_nonchase_df[processed_nonchase_df["Category"]!= "Remaining"]
     st.session_state.remaining_transactions_returning = processed_nonchase_df[processed_nonchase_df["Category"]== "Remaining"]
-    st.dataframe(st.session_state.remaining_transactions_returning)
+    st.dataframe(processed_nonchase_df)
 
 
     return st.session_state.categorized_transactions_returning, st.session_state.remaining_transactions_returning
