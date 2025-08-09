@@ -188,7 +188,6 @@ if selected_tab =="Future Categorization 📊" and st.session_state.spend_df is 
 
     
 elif (selected_tab not in ["Current Spending 📍", "Budgeting Goals 💰", "Future Categorization 📊"]) and (st.session_state.spend_df is not None):
-    st.info("Select a Financial Tool to Begin!")
     st.markdown("""
     ### **Current Spending 📍**  
     Get a clear picture of your spending habits. Use the year and month dropdowns to explore how much you’ve spent in each category, how often you visit your favorite places, and how much you spend there.  
