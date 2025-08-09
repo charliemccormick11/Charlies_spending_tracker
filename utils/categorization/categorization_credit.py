@@ -11,7 +11,7 @@ import os
 
 def categorize_previous_transactions(processed_nonchase_df):
 
-    processed_nonchase_df["Category"] = None
+    processed_nonchase_df["Category"] = "Remaining"
     
     # Create a lookup dictionary from previous categories
     previous_category_lookup = {}
@@ -31,8 +31,8 @@ def categorize_previous_transactions(processed_nonchase_df):
             processed_nonchase_df.loc[idx, "Category"] = previous_category_lookup[transaction_description]
     
 
-    st.session_state.categorized_transactions_returning = processed_nonchase_df[processed_nonchase_df["Category"].notna()]
-    st.session_state.remaining_transactions_returning = processed_nonchase_df[processed_nonchase_df["Category"].isna()]
+    st.session_state.categorized_transactions_returning = processed_nonchase_df[processed_nonchase_df["Category"]!= "Remaining"]
+    st.session_state.remaining_transactions_returning = processed_nonchase_df[processed_nonchase_df["Category"]== "Remaining"]
 
 
     return st.session_state.categorized_transactions_returning, st.session_state.remaining_transactions_returning
