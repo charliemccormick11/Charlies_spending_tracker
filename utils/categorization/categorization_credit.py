@@ -27,7 +27,7 @@ def categorize_previous_transactions(processed_nonchase_df):
     
     # Check each transaction against previous categories
     for idx, row in processed_nonchase_df.iterrows():
-        transaction_description = row["Description"]
+        transaction_description = dp.title_names(row["Clean Description"])
         
         # Check if this transaction description exists in previous categories
         if transaction_description in previous_category_lookup:
