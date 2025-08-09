@@ -57,6 +57,7 @@ def combine_all_spending(credit_card):
         bills_df = categorized_data.get("bills")
         subs_df = categorized_data.get("subs")
         fees_df = categorized_data.get("fees")
+        st.dataframe(golf_df)
 
         if credit_card == "Chase":
             try:
