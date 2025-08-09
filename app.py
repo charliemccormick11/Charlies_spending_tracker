@@ -216,7 +216,7 @@ elif st.session_state.spend_df is None:
 
     💡 If you don't have a Chase card, many transactions may be categorized as "remaining." No worries! With or without a Chase card, we can send your transactions to **ChatGPT** for quick categorization — and you can always fine-tune them manually later!
 
-    🔎 Want to demo the app? Ask [ChatGPT](https://chatgpt.com/) to make you a fake financial statement in CSV format and upload it to this tool!
+    🔎 Want to demo the app? Ask [ChatGPT](https://chatgpt.com/) to make you a fake credit card statement in CSV format and upload it to this tool!
 
     ---
     
