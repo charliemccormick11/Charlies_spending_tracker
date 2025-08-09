@@ -18,17 +18,14 @@ def combine_all_spending(credit_card):
         if credit_card == "Chase":
             categorized_data = cg.categorize_first_pass(data_to_categorize)
             remaining_credit_df = categorized_data.get("remaining")
-            st.write(remaining_credit_df)
             if not remaining_credit_df.empty:
                 remaining_credit_categorized = cg.categorize_transactions_second_pass(remaining_credit_df)
-                st.write(remaining_credit_categorized)
-                
                 if remaining_credit_categorized:
                     merged_dict = {}
 
-                    for key in dict1:
-                        if key in dict2:
-                            merged_dict[key] = pd.concat([dict1[key], dict2[key]], ignore_index=True)   
+                    for key in categorized_data:
+                        if key in remaining_credit_categorized:
+                            merged_dict[key] = pd.concat([categorized_data[key], remaining_credit_categorized[key]], ignore_index=True)   
 
                     categorized_data = merged_dict
 
