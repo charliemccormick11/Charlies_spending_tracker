@@ -358,7 +358,7 @@ def default_page_graphs(category_df, selected_month, selected_year, relevant_col
                 
             st.session_state.spend_df = updated_spend_df
             st.session_state.spend_df.sort_values("Transaction Date", ascending=False)
-            st.success("Payback changes applied and saved!")
+            st.success("Category changes applied and saved!")
             time.sleep(1.5)
             st.rerun()
     
