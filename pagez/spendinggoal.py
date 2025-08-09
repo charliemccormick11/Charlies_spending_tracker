@@ -274,4 +274,5 @@ def budgeting_page(spending_df, client):
                 None
 
             if budgetGPT_button:
-                oaic.open_ai_budgetGPT(alcohol_low_value, takeout_low_value, grocery_low_value, shopping_total_low_value, entertainment_total_low_value, health_low_value, no_bills_spending_low_value, dataframe_selected, category_selected, client)
+                with st.spinner("BudgetGPT is analyzing your spending patterns and generating personalized advice..."):
+                    oaic.open_ai_budgetGPT(alcohol_low_value, takeout_low_value, grocery_low_value, shopping_total_low_value, entertainment_total_low_value, health_low_value, no_bills_spending_low_value, dataframe_selected, category_selected, client)
