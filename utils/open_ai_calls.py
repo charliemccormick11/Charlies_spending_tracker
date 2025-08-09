@@ -42,9 +42,10 @@ def open_ai_headers(uploaded_credit, credit_card, client):
         prompt = prompt.replace("- Category (Food & Drink, Groceries, Entertainment, Shopping, etc.) index is likely 3", "")
         prompt = prompt.replace(", 'category'.", ".")
 
+    st.write("pre-call")
 
     completion = client.chat.completions.create(
-    model="gpt-4",
+    model="gpt-4-turbo",
     messages=[{
         "role": "user",
         "content": prompt,
