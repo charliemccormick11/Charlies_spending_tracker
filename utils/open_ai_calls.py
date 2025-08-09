@@ -44,7 +44,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
 
 
     completion = client.chat.completions.create(
-    model="gpt-4-turbo",
+    model="gpt-4",
     messages=[{
         "role": "user",
         "content": prompt,
