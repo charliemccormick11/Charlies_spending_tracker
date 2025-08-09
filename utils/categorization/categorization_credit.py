@@ -22,6 +22,8 @@ def categorize_previous_transactions(processed_nonchase_df):
             description = row["Description"]
             category = row["Category"]
             previous_category_lookup[description] = category
+
+        st.write(st.session_state.previous_categories)
     
     # Check each transaction against previous categories
     for idx, row in processed_nonchase_df.iterrows():
