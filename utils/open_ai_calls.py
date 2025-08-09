@@ -109,8 +109,9 @@ def open_ai_random_categorization(client):
                 st.session_state.spend_df_newload["Category"] == "Remaining"
             ]
             readable_remaining_df_feed = readable_remaining_df[["Transaction Date", "Description", "Amount"]]
-    
-            st.write(f"Total transactions being categorized by ChatGPT🚀: {len(readable_remaining_df_feed)}")
+
+            if len(readable_remaining_df_feed) != 0:
+                st.write(f"Total transactions being categorized by ChatGPT🚀: {len(readable_remaining_df_feed)}")
     
             # Initialize progress bar and lists to collect all results
             batch_size = 40
