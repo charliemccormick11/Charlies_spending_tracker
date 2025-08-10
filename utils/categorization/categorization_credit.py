@@ -11,7 +11,7 @@ import os
 
 def categorize_previous_transactions(processed_nonchase_df):
 #Need to figure this out, get rid of the remaining line and change it to where if the categorys in the column for chase are different, then to 
-    if "Category" not in processed_nonchase_df.columns:
+    if st.session_state.credit_card == "Other":
         processed_nonchase_df["Category"] = None
     
     # Create a lookup dictionary from previous categories
@@ -31,9 +31,9 @@ def categorize_previous_transactions(processed_nonchase_df):
             # Assign the category from the previous categories lookup
             processed_nonchase_df.loc[idx, "Category"] = previous_category_lookup[transaction_description]
     
-
-    st.session_state.categorized_transactions_returning = processed_nonchase_df[processed_nonchase_df["Category"]!= "Remaining"]
-    st.session_state.remaining_transactions_returning = processed_nonchase_df[processed_nonchase_df["Category"]== "Remaining"]
+    if st.session_state.credit_card == "Other":
+        st.session_state.categorized_transactions_returning = processed_nonchase_df[processed_nonchase_df["Category"]!= None]
+        st.session_state.remaining_transactions_returning = processed_nonchase_df[processed_nonchase_df["Category"]== None]
 
 
     return st.session_state.categorized_transactions_returning, st.session_state.remaining_transactions_returning
