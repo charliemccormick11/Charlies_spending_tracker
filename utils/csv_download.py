@@ -47,3 +47,7 @@ def download_as_csv():
 
     #Designated type of row in downloadable CSV
     st.session_state.spend_df["Financial Type"] = "Spending"
+
+
+    #code setting up future categories
+    st.session_state.spend_df[["Description", "Category"]].drop_duplicates(subset=["Description"])
