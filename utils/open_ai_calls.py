@@ -6,9 +6,8 @@ import io
 
 def open_ai_headers(uploaded_credit, credit_card, client):
     st.sidebar.success(f"{len(uploaded_credit)} credit file(s) uploaded.")
-    dfs_credit = [pd.read_csv(file, header=None,dtype={'Raw Amount': 'float64'}) for file in uploaded_credit]
+    dfs_credit = [pd.read_csv(file, header=None) for file in uploaded_credit]
     total_credit_df = pd.concat(dfs_credit, ignore_index=True)
-    total_credit_df['Raw Amount'] = total_credit_df.map(lambda x: f"{x:.2f}")
 
     credit_sample = total_credit_df.head(1)
     #Code that is calling the open AI API
