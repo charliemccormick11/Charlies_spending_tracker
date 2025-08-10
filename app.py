@@ -148,6 +148,7 @@ if uploaded_credit or uploaded_previous:
 
 
             csvd.download_as_csv()
+            st.dataframe(st.session_state.spend_df)
 
         
 
