@@ -128,10 +128,8 @@ if uploaded_credit or uploaded_previous:
                 if uploaded_previous:
                     st.session_state.total_df_downloaded = pd.read_csv(uploaded_previous_file, dtype={'Raw Amount': 'float64'})
                     st.session_state.total_df_downloaded['Raw Amount'] = st.session_state.total_df_downloaded['Raw Amount'].map(lambda x: f"{x:.2f}")
-                    st.dataframe(st.session_state.total_df_downloaded)
                     st.session_state.total_df_downloaded_spending = st.session_state.total_df_downloaded[st.session_state.total_df_downloaded["Financial Type"] == "Spending"]
                     st.session_state.spend_df_preload = st.session_state.total_df_downloaded_spending.reset_index()
-                    st.dataframe(st.session_state.spend_df_preload)
                     st.session_state.previous_categories = st.session_state.total_df_downloaded[st.session_state.total_df_downloaded["Financial Type"] == "Future Category"]
                     st.session_state.previous_categories = st.session_state.previous_categories.reset_index()
             if uploaded_credit:
