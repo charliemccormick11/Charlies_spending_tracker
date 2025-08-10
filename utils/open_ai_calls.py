@@ -45,7 +45,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     st.write("pre-call")
 
     completion = client.chat.completions.create(
-    model="gpt-4-turbo",
+    model="gpt-5",
     messages=[{
         "role": "user",
         "content": prompt,
