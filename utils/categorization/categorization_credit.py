@@ -32,8 +32,8 @@ def categorize_previous_transactions(processed_nonchase_df):
             processed_nonchase_df.loc[idx, "Category"] = previous_category_lookup[transaction_description]
     
     if st.session_state.credit_card == "Other":
-        st.session_state.categorized_transactions_returning = processed_nonchase_df[processed_nonchase_df["Category"].isnotna()]
-        st.session_state.remaining_transactions_returning = processed_nonchase_df[processed_nonchase_df["Category"].isna()]
+        st.session_state.categorized_transactions_returning = processed_nonchase_df[processed_nonchase_df["Category"] != None]
+        st.session_state.remaining_transactions_returning = processed_nonchase_df[processed_nonchase_df["Category"] == None]
 
 
     return st.session_state.categorized_transactions_returning, st.session_state.remaining_transactions_returning
