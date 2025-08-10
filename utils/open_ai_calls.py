@@ -5,7 +5,6 @@ import json
 import io
 
 def open_ai_headers(uploaded_credit, credit_card, client):
-    st.write("balls")
     st.sidebar.success(f"{len(uploaded_credit)} credit file(s) uploaded.")
     dfs_credit = [pd.read_csv(file, header=None) for file in uploaded_credit]
     total_credit_df = pd.concat(dfs_credit, ignore_index=True)
@@ -46,15 +45,13 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     model="gpt-4-turbo",
     messages=[{
         "role": "user",
-        "content": "Can you tell me a joke",
+        "content": prompt,
     }], temperature=0
     )
-    st.write("call happened")
     # Parse OpenAI response into a dictionary
     try:
     # Parse the JSON response
         st.session_state.column_info = json.loads(completion.choices[0].message.content)
-        st.write(st.session_state.column_info)
         if not isinstance(st.session_state.column_info['description'], int):
             st.session_state.column_info['description'] = 3
 
