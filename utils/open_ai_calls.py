@@ -43,18 +43,21 @@ def open_ai_headers(uploaded_credit, credit_card, client):
         prompt = prompt.replace(", 'category'.", ".")
 
     st.write("pre-call")
+    st.write(prompt)
 
     completion = client.chat.completions.create(
-    model="gpt-5",
+    model="gpt-4-turbo",
     messages=[{
         "role": "user",
-        "content": prompt,
+        "content": "Can you tell me a joke",
     }], temperature=0
     )
     st.write("call happened")
     # Parse OpenAI response into a dictionary
     try:
     # Parse the JSON response
+        ball = completion.choices[0].message.content
+        st.write(ball)
         st.session_state.column_info = json.loads(completion.choices[0].message.content)
         st.write(st.session_state.column_info)
         if not isinstance(st.session_state.column_info['description'], int):
