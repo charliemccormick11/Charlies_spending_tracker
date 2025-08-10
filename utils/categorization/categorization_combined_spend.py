@@ -9,10 +9,8 @@ def combine_all_spending(credit_card):
     if st.session_state.processed_credit_df is not None:
         if 'previous_categories' in st.session_state:
             categorized_previous= cg.categorize_previous_transactions(st.session_state.processed_credit_df)[0]
-            st.dataframe(categorized_previous)
             remaining_transactions_returning = cg.categorize_previous_transactions(st.session_state.processed_credit_df)[1]
             data_to_categorize = remaining_transactions_returning
-            st.dataframe(data_to_categorize)
 
         else:
             data_to_categorize = st.session_state.processed_credit_df
@@ -113,9 +111,10 @@ def combine_all_spending(credit_card):
         if 'previous_categories' in st.session_state:
             st.session_state.spend_df_newload = pd.concat([st.session_state.spend_df_newload, categorized_previous], ignore_index=True)
 
-        #st.dataframe(st.session_state.spend_df_newload)
     
         st.session_state.spend_df_newload["Description"]=st.session_state.spend_df_newload["Clean Description"]
         st.session_state.spend_df_newload["Description"] = st.session_state.spend_df_newload["Description"].astype(str).apply(title_names)
+        st.dataframe(st.session_state.spend_df_newload)
+        
     
             
