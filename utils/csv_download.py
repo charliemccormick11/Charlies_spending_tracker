@@ -50,4 +50,4 @@ def download_as_csv():
 
 
     #code setting up future categories
-    st.session_state.spend_df[["Description", "Category"]].drop_duplicates(subset=["Description"])
+    st.session_state.future_categories = st.session_state.spend_df[["Description", "Category"]].drop_duplicates(subset=["Description"])
