@@ -114,7 +114,6 @@ def combine_all_spending(credit_card):
     
         st.session_state.spend_df_newload["Description"]=st.session_state.spend_df_newload["Clean Description"]
         st.session_state.spend_df_newload["Description"] = st.session_state.spend_df_newload["Description"].astype(str).apply(title_names)
-        st.dataframe(st.session_state.spend_df_newload)
         
     
             
