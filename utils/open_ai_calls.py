@@ -42,9 +42,6 @@ def open_ai_headers(uploaded_credit, credit_card, client):
         prompt = prompt.replace("- Category (Food & Drink, Groceries, Entertainment, Shopping, etc.) index is likely 3", "")
         prompt = prompt.replace(", 'category'.", ".")
 
-    st.write("pre-call")
-    st.write(prompt)
-
     completion = client.chat.completions.create(
     model="gpt-4-turbo",
     messages=[{
@@ -56,13 +53,10 @@ def open_ai_headers(uploaded_credit, credit_card, client):
     # Parse OpenAI response into a dictionary
     try:
     # Parse the JSON response
-        ball = completion.choices[0].message.content
-        st.write(ball)
         st.session_state.column_info = json.loads(completion.choices[0].message.content)
         st.write(st.session_state.column_info)
         if not isinstance(st.session_state.column_info['description'], int):
             st.session_state.column_info['description'] = 3
-        st.write(st.session_state.column_info)
 
         
     except Exception as e:
