@@ -12,6 +12,7 @@ import utils.csv_download as csvd
 from datetime import datetime
 import io
 import time
+import logging
 
 
 st.set_page_config(page_title="Macker Spending Tracker", layout="wide", initial_sidebar_state="expanded")
@@ -51,7 +52,7 @@ if st.session_state.spend_df is not None:
         datetime_str = now.strftime("%Y-%m-%d %I:%M %p")
         
         buf = io.StringIO()
-        export_df.to_csv(buf, index=False)  # writes to buffer, no return value
+        downloadable_df.to_csv(buf, index=False)  # writes to buffer, no return value
         
         st.download_button(
             label="Download File for Next Session!",
