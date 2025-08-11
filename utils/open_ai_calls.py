@@ -200,7 +200,7 @@ def open_ai_random_categorization(client):
 
 def open_ai_budgetGPT(alcohol_low_value, takeout_low_value, grocery_low_value, shopping_total_low_value, entertainment_total_low_value, health_low_value, no_bills_spending_low_value, dataframe_selected, category_selected, client):
     try:
-        prompt = f"""You are a financial advisor helping a user with their personal finance tracker. The page displays target budget amounts for the following categories based on the average of the lowest X spending months in that category from the previous year. 
+        prompt = f"""You are a financial advisor helping a user with their personal finance tracker. The page displays target budget amounts for the following categories based on the average of the lowest 6 spending months in that category from the previous year. 
 
         Here are the target values:
         - Alcohol 🍺: {alcohol_low_value}
