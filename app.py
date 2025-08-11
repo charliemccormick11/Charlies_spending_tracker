@@ -46,20 +46,18 @@ if st.session_state.spend_df is not None:
 
         else:
             downloadable_df = download_spend
-
+            
         now = datetime.now()
         datetime_str = now.strftime("%Y-%m-%d %I:%M %p")
+        
         buf = io.StringIO()
-        export_df.to_csv(buf, index=False).encode('utf-8')
-
+        export_df.to_csv(buf, index=False)  # writes to buffer, no return value
+        
         st.download_button(
-        label="Download File for Next Session!",
-        data=buf.getvalue(),
-        file_name='Charlies_Spending_Tracker ' + datetime_str + '.csv',
-        mime='text/csv')
-
-        #App title
-        st.title("Charlie's Spending Tracker")
+            label="Download File for Next Session!",
+            data=buf.getvalue(),  # get CSV text from buffer
+            file_name=f"Charlies_Spending_Tracker {datetime_str}.csv",
+            mime="text/csv")
 
 
 else:
