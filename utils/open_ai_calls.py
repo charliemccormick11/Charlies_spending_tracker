@@ -6,7 +6,7 @@ import io
 
 def open_ai_headers(uploaded_credit, credit_card, client):
     st.sidebar.success(f"{len(uploaded_credit)} credit file(s) uploaded.")
-    dfs_credit = [pd.read_csv(file, header=None) for file in uploaded_credit]
+    dfs_credit = [pd.read_csv(file) for file in uploaded_credit]
     total_credit_df = pd.concat(dfs_credit, ignore_index=True)
     st.dataframe(total_credit_df)
 
