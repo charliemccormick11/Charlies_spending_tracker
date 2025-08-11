@@ -239,6 +239,6 @@ def open_ai_budgetGPT(alcohol_low_value, takeout_low_value, grocery_low_value, s
         # Display the response
         st.write(completion.choices[0].message.content)
 
-    except Exception as e:
-        st.error(f"An error occurred while getting advice: {str(e)}")
+    except:
+        st.error("An error occurred while getting advice")
         st.info("Please try again or check your internet connection.")
