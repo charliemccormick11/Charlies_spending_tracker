@@ -90,7 +90,7 @@ def extract_description(name):
 def process_credit_transactions(df):
 
     df["Raw Description"]=df["Description"].astype(str)
-    df["Raw Amount"] = df["Amount"].apply(lambda x: f"{float(x):.2f}" if pd.notna(x) else x)
+    df["Raw Amount"] = df["Amount"].apply(lambda x: None if x == "Amount" else f"{float(x):.2f}" if pd.notna(x) else x)
     df["Raw Date"]=df["Transaction Date"].astype(str)
     df["Description"]=df["Description"].astype(str)
     df["Source"]= "credit"
