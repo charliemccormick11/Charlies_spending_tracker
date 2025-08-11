@@ -56,7 +56,7 @@ def open_ai_headers(uploaded_credit, credit_card, client):
             st.session_state.column_info['description'] = 3
 
         
-    except Exception as e:
+    except:
         st.error(f"Please ensure you are uploading a CSV file listing the Transaction Date, Description, and Amount")
         st.session_state.column_info = {}
     # Process credit data
@@ -175,8 +175,8 @@ def open_ai_random_categorization(client):
                 try:
                     result_dict = json.loads(completion.choices[0].message.content)
                     all_categories.extend(result_dict.get("Category", []))
-                except Exception as e:
-                    st.error(f"Error processing batch {i // batch_size + 1}: {str(e)}")
+                except:
+                    st.error("Error processing")
                     all_categories.extend(["Remaining"] * len(batch))
     
                 # Update progress bar
@@ -194,8 +194,8 @@ def open_ai_random_categorization(client):
             st.success("Categorization successful! 🎉")
 
     
-        except Exception as e:
-            st.error(f"Unexpected error: {str(e)}")
+        except:
+            st.error("Unexpected error")
 
 
 def open_ai_budgetGPT(alcohol_low_value, takeout_low_value, grocery_low_value, shopping_total_low_value, entertainment_total_low_value, health_low_value, no_bills_spending_low_value, dataframe_selected, category_selected, client):
