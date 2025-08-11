@@ -50,7 +50,7 @@ if st.session_state.spend_df is not None:
         else:
             downloadable_df = download_spend
 
-       DANGEROUS_PREFIXES = ("=", "+", "-", "@", "\t")
+        DANGEROUS_PREFIXES = ("=", "+", "-", "@", "\t")
 
         def safe_cell(s):
             s = "" if s is None else str(s)
