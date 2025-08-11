@@ -14,7 +14,6 @@ def download_as_csv():
             new_transactions = dp.filter_new_transactions(st.session_state.spend_df_newload, st.session_state.spend_df_preload, subset_cols)
             st.session_state.spend_df = pd.concat([st.session_state.spend_df_preload, new_transactions], ignore_index=True)
             st.session_state.spend_df_upload= st.session_state.spend_df[["Transaction Date", "Description" , "Category" , "Amount", "Year", "Month", "Raw Description", "Raw Amount", "Raw Date"]]
-            st.dataframe(st.session_state.spend_df)
 
         else:
             st.session_state.spend_df = st.session_state.spend_df_preload
