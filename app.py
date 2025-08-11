@@ -59,7 +59,7 @@ if st.session_state.spend_df is not None:
         st.download_button(
             label="Download File for Next Session!",
             data=buf.getvalue(),
-            file_name=f"{filename_prefix} {datetime_str}.csv",
+            file_name='Charlies_Spending_Tracker ' + datetime_str + '.csv',
             mime="text/csv"
         )
 
