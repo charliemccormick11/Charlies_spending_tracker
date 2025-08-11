@@ -10,6 +10,7 @@ import utils.open_ai_calls as oaic
 import utils.categorization.categorization_combined_spend as ccs
 import utils.csv_download as csvd
 from datetime import datetime
+import io
 import time
 
 
