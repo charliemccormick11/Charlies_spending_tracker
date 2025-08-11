@@ -33,14 +33,15 @@ def categorize_previous_transactions(processed_nonchase_df):
     
     if st.session_state.credit_card == "Other":
         st.session_state.categorized_transactions_returning = processed_nonchase_df[processed_nonchase_df["Category"] != None]
+        st.dataframe(st.session_state.categorized_transactions_returning)
         st.session_state.remaining_transactions_returning = processed_nonchase_df[processed_nonchase_df["Category"] == None]
+        st.dataframe(st.session_state.remaining_transactions_returning)
 
     else:
         categories_list = st.session_state.previous_categories["Category"].dropna().unique().tolist()
         st.session_state.categorized_transactions_returning = processed_nonchase_df[processed_nonchase_df["Category"].isin(categories_list)]
-        st.dataframe(st.session_state.categorized_transactions_returning)
         st.session_state.remaining_transactions_returning = processed_nonchase_df[~processed_nonchase_df["Category"].isin(categories_list)]
-        st.dataframe(st.session_state.remaining_transactions_returning)
+        
 
     return st.session_state.categorized_transactions_returning, st.session_state.remaining_transactions_returning
 
