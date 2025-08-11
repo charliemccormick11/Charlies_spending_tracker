@@ -107,8 +107,7 @@ def current_spending_page(relevant_columns, client):
                     sorted_df = st.session_state.spend_df
             else:
                 sorted_df = st.session_state.spend_df
-        except Exception as e:
-            st.warning(f"Error sorting by date: {str(e)}. Displaying data without sorting.")
+        except:
             sorted_df = st.session_state.spend_df
 
         # Cache categories in session state to avoid recalculating on every render
