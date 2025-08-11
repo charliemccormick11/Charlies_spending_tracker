@@ -232,6 +232,6 @@ elif st.session_state.spend_df is None:
     ### ChatGPT Agreement:           
     """)
 
-    st.session_state.agree = st.checkbox("I understand that when I use AI categorization, my transaction data **(Transaction Dates, Descriptions, Amounts)** will be sent to OpenAI for processing to automatically categorize my transactions. I can change any categories afterward and this feature is optional. **No other information is shared**")
+    st.session_state.agree = st.checkbox("I understand that when I use AI categorization, my transaction data **(Descriptions and Amounts)** will be sent to OpenAI for processing to automatically categorize my transactions. I can change any categories afterward and this feature is optional. **No other information is shared**")
     if st.session_state.agree:
         st.info("""Great! Press "Process Data" to begin!""")
