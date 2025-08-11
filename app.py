@@ -50,24 +50,24 @@ if st.session_state.spend_df is not None:
         else:
             downloadable_df = download_spend
 
+       DANGEROUS_PREFIXES = ("=", "+", "-", "@", "\t")
+
         def safe_cell(s):
             s = "" if s is None else str(s)
             return "'" + s if s.startswith(DANGEROUS_PREFIXES) else s
-
+        
         def safe_export(df, filename_prefix="Charlies_Spending_Tracker"):
             safe_df = df.applymap(safe_cell)
-        
             now = datetime.now()
             datetime_str = now.strftime("%Y-%m-%d %I:%M %p")
-            
             buf = io.StringIO()
-            downloadable_df.to_csv(buf, index=False)  # writes to buffer, no return value
-            
+            safe_df.to_csv(buf, index=False)
             st.download_button(
                 label="Download File for Next Session!",
-                data=buf.getvalue(),  # get CSV text from buffer
-                file_name=f"Charlies_Spending_Tracker {datetime_str}.csv",
-                mime="text/csv")
+                data=buf.getvalue(),
+                file_name=f"{filename_prefix} {datetime_str}.csv",
+                mime="text/csv"
+            )
 
         safe_export(downloadable_df)
 
