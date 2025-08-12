@@ -4,8 +4,18 @@ Originally designed for Chase credit cards, this app leverages transaction names
 For all transactions that cannot be categorized, the user has the option to leverage OpenAI to categorize transactions. Each transaction's category can be manually updated later. 
 
 # Pages
-Transaction Categorization: Categorize transactions based on predefined categories (e.g., Alcohol 🍺, Dining 🍴, Groceries 🛒, etc.) using a combination of manual and AI-assisted classification.
-
-Spending Insights: View detailed spending insights by category, with the ability to set budgets and track your progress.
-
-Financial Goal Setting: Set and track financial goals for various spending categories (e.g., dining, groceries).
+## Current Spending 📍  
+    Get a clear picture of your spending habits. Use the year and month dropdowns to explore how much you’ve spent in each category, how often you visit your favorite places, and how much you spend there.  
+    You can also re-categorize individual transactions to refine your financial data.  
+    **Note:** Don’t forget to click the **“Download”** button on this page to save your categorized transactions. You’ll need this file next time you return to the app!
+    
+    ---
+    
+## Budgeting Goals 💰
+    Track your monthly spending across variable categories. Your budget goal for each category is based on the average of your **6 lowest-spending months** over the past year. For the current month, we’ll pro-rate the target to show whether you’re on track.  
+    To help you improve, **BudgetGPT** analyzes your recent transactions and suggests actionable strategies to cut spending in each category.
+    
+    ---
+    
+## Future Categorization 📊 
+    Customize how each vendor is categorized moving forward. After uploading your previously saved file under **"Returning Users ↩️"**, the app will automatically apply your preferences to new transactions — so everything stays organized your way.
