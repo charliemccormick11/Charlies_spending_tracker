@@ -5,17 +5,10 @@ For all transactions that cannot be categorized, the user has the option to leve
 
 # Pages
 ## Current Spending 📍  
-    Get a clear picture of your spending habits. Use the year and month dropdowns to explore how much you’ve spent in each category, how often you visit your favorite places, and how much you spend there.  
-    You can also re-categorize individual transactions to refine your financial data.  
-    **Note:** Don’t forget to click the **“Download”** button on this page to save your categorized transactions. You’ll need this file next time you return to the app!
-    
-    ---
-    
+Get a clear picture of your spending habits. Use the year and month dropdowns to explore how much you’ve spent in each category, how often you visit your favorite places, and how much you spend there. You can also re-categorize individual transactions to refine your financial data. **Note:** Don’t forget to click the **“Download”** button on this page to save your categorized transactions. You’ll need this file next time you return to the app!
+
 ## Budgeting Goals 💰
-    Track your monthly spending across variable categories. Your budget goal for each category is based on the average of your **6 lowest-spending months** over the past year. For the current month, we’ll pro-rate the target to show whether you’re on track.  
-    To help you improve, **BudgetGPT** analyzes your recent transactions and suggests actionable strategies to cut spending in each category.
-    
-    ---
+Track your monthly spending across variable categories. Your budget goal for each category is based on the average of your **6 lowest-spending months** over the past year. For the current month, we’ll pro-rate the target to show whether you’re on track. To help you improve, **BudgetGPT** analyzes your recent transactions and suggests actionable strategies to cut spending in each category.
     
 ## Future Categorization 📊 
-    Customize how each vendor is categorized moving forward. After uploading your previously saved file under **"Returning Users ↩️"**, the app will automatically apply your preferences to new transactions — so everything stays organized your way.
+Customize how each vendor is categorized moving forward. After uploading your previously saved file under **"Returning Users ↩️"**, the app will automatically apply your preferences to new transactions — so everything stays organized your way.
