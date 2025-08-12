@@ -174,7 +174,7 @@ def current_spending_page(relevant_columns, client):
 
 
     elif st.session_state.selected_value == "Remaining":
-        if st.session_state.spend_df[st.session_state.spend_df["Remaining"].empty:
+        if st.session_state.spend_df[st.session_state.spend_df["Category"]== "Remaining"].empty:
             st.write("✅ All transactions have been categorized!")
         else:
             st.header("Remaining Transactions")
