@@ -178,7 +178,7 @@ def current_spending_page(relevant_columns, client):
             st.write("✅ All transactions have been categorized!")
         else:
             st.header("Remaining Transactions")
-            gp.default_page_graphs(st.session_state.spend_df[st.session_state.spend_df["Remaining"], selected_month, selected_year, relevant_columns)
+            gp.default_page_graphs(st.session_state.spend_df[st.session_state.spend_df["Category"] == "Remaining"], selected_month, selected_year, relevant_columns)
 
 
             
