@@ -14,7 +14,7 @@ import io
 import time
 import logging
 
-st.set_page_config(page_title="Macker Spending Tracker", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="Charlie's Spending Tracker", layout="wide", initial_sidebar_state="expanded")
 
 logging.getLogger().setLevel(logging.WARNING)
 st.set_option("client.showErrorDetails", False)
