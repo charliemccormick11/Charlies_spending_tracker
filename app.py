@@ -221,6 +221,7 @@ elif (selected_tab not in ["Current Spending 📍", "Budgeting Goals 💰", "Fut
 
 elif st.session_state.spend_df is None:
    # Description with more emphasis
+    st.info("This app is for personal use and educational purposes only. The developer is not responsible for financial decisions made based on this tool. Use at your own risk.")
     st.markdown("""
     This tool helps you **analyze** your spending habits by turning your credit card transactions into meaningful insights!  
     📥 Simply upload your **credit card statements** from your credit card company in **CSV** format, and watch your data get neatly categorized.
@@ -231,12 +232,12 @@ elif st.session_state.spend_df is None:
 
     
                 
-    ### ChatGPT Agreement:           
+    ### ChatGPT Agreement:  
+
+    ---
     """)
 
-    st.info("This app is for personal use and educational purposes only. The developer is not responsible for financial decisions made based on this tool. Use at your own risk.")
 
-    st.divider()
     st.session_state.agree = st.checkbox("I understand that when I use AI categorization, my transaction data **(Descriptions and Amounts)** will be sent to OpenAI for processing to automatically categorize my transactions. I can change any categories afterward and this feature is optional. **No other information is shared**")
     if st.session_state.agree:
         st.info("""Great! Press "Process Data" to begin!""")
