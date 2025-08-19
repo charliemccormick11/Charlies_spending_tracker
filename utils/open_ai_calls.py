@@ -125,7 +125,7 @@ def open_ai_random_categorization(client):
     You are a categorization assistant for personal finance transactions.
     
     Categories for transaction classification:
-    - Alcohol 🍺
+    - Beverages 🍺
     - Dining 🍴
     - Takeout 🍔
     - Groceries 🛒
@@ -203,7 +203,7 @@ def open_ai_budgetGPT(alcohol_low_value, takeout_low_value, grocery_low_value, s
         prompt = f"""You are a financial advisor helping a user with their personal finance tracker. The page displays target budget amounts for the following categories based on the average of the lowest 6 spending months in that category from the previous year. 
 
         Here are the target values:
-        - Alcohol 🍺: {alcohol_low_value}
+        - Beverages 🍺: {alcohol_low_value}
         - Takeout 🍔: {takeout_low_value}
         - Groceries 🛒: {grocery_low_value}
         - Shopping 👚🛍️: {shopping_total_low_value}
