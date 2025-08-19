@@ -229,7 +229,6 @@ elif st.session_state.spend_df is None:
 
     🔎 Want to demo the app? Ask [ChatGPT](https://chatgpt.com/) to make you a fake credit card statement in CSV format and upload it to this tool!
 
-    ---
     
                 
     ### ChatGPT Agreement:           
@@ -237,6 +236,7 @@ elif st.session_state.spend_df is None:
 
     st.info("This app is for personal use and educational purposes only. The developer is not responsible for financial decisions made based on this tool. Use at your own risk.")
 
+    st.divider()
     st.session_state.agree = st.checkbox("I understand that when I use AI categorization, my transaction data **(Descriptions and Amounts)** will be sent to OpenAI for processing to automatically categorize my transactions. I can change any categories afterward and this feature is optional. **No other information is shared**")
     if st.session_state.agree:
         st.info("""Great! Press "Process Data" to begin!""")
