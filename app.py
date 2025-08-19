@@ -239,4 +239,4 @@ elif st.session_state.spend_df is None:
     if st.session_state.agree:
         st.info("""Great! Press "Process Data" to begin!""")
 
-    st.info("“This tool is for personal use and educational purposes only. The developer is not responsible for financial decisions made based on this tool. Use at your own risk.”)
+    st.info("This tool is for personal use and educational purposes only. The developer is not responsible for financial decisions made based on this tool. Use at your own risk.”)
