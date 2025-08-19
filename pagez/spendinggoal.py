@@ -18,7 +18,7 @@ def spending_goal(spending_df, months, selected_month):
     selected_month_spending_df=gp.filter_data_year_month(spending_df, today.year, selected_month)
 
 
-    past_alcohol_df=past_spending_df[past_spending_df['Category'] == "Alcohol 🍺"]
+    past_alcohol_df=past_spending_df[past_spending_df['Category'] == "Beverages 🍺"]
     past_takeout_df=past_spending_df[past_spending_df['Category'] == "Takeout 🍔"]
     past_groceries_df=past_spending_df[past_spending_df['Category'] == "Groceries 🛒"]
     past_gambling_df = past_spending_df[past_spending_df['Category'] == "Gambling 🎰"]
@@ -30,7 +30,7 @@ def spending_goal(spending_df, months, selected_month):
     past_fashion_df = past_spending_df[past_spending_df['Category'] == "Fashion 👚"]
     past_golf_df= past_spending_df[past_spending_df['Category'] == "Golf ⛳"]
 
-    selected_month_alcohol_df=selected_month_spending_df[selected_month_spending_df['Category'] == "Alcohol 🍺"]
+    selected_month_alcohol_df=selected_month_spending_df[selected_month_spending_df['Category'] == "Beverages 🍺"]
     selected_month_takeout_df=selected_month_spending_df[selected_month_spending_df['Category'] == "Takeout 🍔"]
     selected_month_groceries_df=selected_month_spending_df[selected_month_spending_df['Category'] == "Groceries 🛒"]
     selected_month_gambling_df = selected_month_spending_df[selected_month_spending_df['Category'] == "Gambling 🎰"]
@@ -242,7 +242,7 @@ def budgeting_page(spending_df, client):
                     st.metric("Monthly Target", f"${month_target:.2f}")
 
             # Create rows for each category
-            create_metric_row("Alcohol 🍺", alcohol_current_value, alcohol_low_value, get_days_in_current_month(selected_month))
+            create_metric_row("Beverages 🍺", alcohol_current_value, alcohol_low_value, get_days_in_current_month(selected_month))
             create_metric_row("Takeout 🍔", takeout_current_value, takeout_low_value, get_days_in_current_month(selected_month))
             create_metric_row("Groceries 🛒", grocery_current_value, grocery_low_value, get_days_in_current_month(selected_month))
             create_metric_row("Shopping 👚🚀", shopping_total_current_value, shopping_total_low_value, get_days_in_current_month(selected_month))
@@ -254,10 +254,10 @@ def budgeting_page(spending_df, client):
             st.write("BudgetGPT is a tool that will help you set goals for your categories with the most room to save as well as your overall monthly spend. Select a category to get advice on how to save!")
             col1, col2 = st.columns(2)
             with col1:
-                category_selected = st.selectbox("Select a Category", ["Alcohol 🍺", "Takeout 🍔", "Groceries 🛒", "Shopping 👚🚀", "Health 💪", "Entertainment 🎰🚀", "Total Spending (No Bills) 💰"])
+                category_selected = st.selectbox("Select a Category", ["Beverages 🍺", "Takeout 🍔", "Groceries 🛒", "Shopping 👚🚀", "Health 💪", "Entertainment 🎰🚀", "Total Spending (No Bills) 💰"])
                 budgetGPT_button=st.button("Get Advice")
-            if category_selected == "Alcohol 🍺":
-                dataframe_selected = gp.filter_data_year(spending_df[spending_df['Category'] == "Alcohol 🍺"], current_year, selected_month)
+            if category_selected == "Beverages 🍺":
+                dataframe_selected = gp.filter_data_year(spending_df[spending_df['Category'] == "Beverages 🍺"], current_year, selected_month)
             elif category_selected == "Takeout 🍔":
                 dataframe_selected = gp.filter_data_year(spending_df[spending_df['Category'] == "Takeout 🍔"], current_year, selected_month)
             elif category_selected == "Groceries 🛒":
