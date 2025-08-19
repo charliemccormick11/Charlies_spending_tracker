@@ -221,7 +221,6 @@ elif (selected_tab not in ["Current Spending 📍", "Budgeting Goals 💰", "Fut
 
 elif st.session_state.spend_df is None:
    # Description with more emphasis
-    st.info("This app is for personal use and educational purposes only. The developer is not responsible for financial decisions made based on this tool. Use at your own risk.")
     st.markdown("""
     This tool helps you **analyze** your spending habits by turning your credit card transactions into meaningful insights!  
     📥 Simply upload your **credit card statements** from your credit card company in **CSV** format, and watch your data get neatly categorized.
@@ -230,11 +229,11 @@ elif st.session_state.spend_df is None:
 
     🔎 Want to demo the app? Ask [ChatGPT](https://chatgpt.com/) to make you a fake credit card statement in CSV format and upload it to this tool!
 
-    
+    ---
                 
     ### ChatGPT Agreement:  
 
-    ---
+
     """)
 
 
@@ -243,3 +242,4 @@ elif st.session_state.spend_df is None:
         st.info("""Great! Press "Process Data" to begin!""")
 
     
+    st.info("This app is for personal use and educational purposes only. The developer is not responsible for financial decisions made based on this tool. Use at your own risk.")
