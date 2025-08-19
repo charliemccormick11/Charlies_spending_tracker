@@ -70,7 +70,7 @@ def combine_all_spending(credit_card):
 
 
         categories = {
-        "Alcohol 🍺": bar_df,
+        "Beverages 🍺": bar_df,
         "Dining 🍴": restaurant_df,
         "Takeout 🍔": takeout_df,
         "Groceries 🛒": grocery_df,
