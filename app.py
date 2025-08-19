@@ -238,3 +238,5 @@ elif st.session_state.spend_df is None:
     st.session_state.agree = st.checkbox("I understand that when I use AI categorization, my transaction data **(Descriptions and Amounts)** will be sent to OpenAI for processing to automatically categorize my transactions. I can change any categories afterward and this feature is optional. **No other information is shared**")
     if st.session_state.agree:
         st.info("""Great! Press "Process Data" to begin!""")
+
+    st.info("“This tool is for personal use and educational purposes only. The developer is not responsible for financial decisions made based on this tool. Use at your own risk.”)
